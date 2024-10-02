@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
   font-family: "poppins-light";
   src: url(../fonts/poppins-light.woff2) format("woff2");
@@ -13,7 +12,6 @@
   src: url(../fonts/poppins-regular.woff2) format("woff2");
   font-display: swap;
 }
-
 
 @font-face {
   font-family: "poppins-bold";
@@ -37,41 +35,46 @@
   --dark: 0deg 0% 13%;
   --light: 0deg 0% 95%;
   --body: 0deg 0% 50%;
+  --accent: 51deg 99% 71%;
 }
 
 @layer base {
-
-  body { 
-    @apply text-sm leading-relaxed font-poppinsRegular bg-light 
+  body {
+    @apply text-sm leading-snug font-poppinsRegular bg-light;
   }
 
-  h1, h2,h3,h4,h5,h6 {
-    @apply font-suraBold leading-snug text-balance
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-suraBold leading-snug text-balance;
   }
 
   h1 {
-    @apply text-[clamp(35px,_6vw,_60px)] mb-5
+    @apply text-[clamp(35px,_6vw,_60px)] mb-5;
   }
 
-  
   h2 {
-    @apply text-[clamp(25px,_6vw,_40px)] mb-3
+    @apply text-[clamp(25px,_6vw,_40px)] mb-3;
   }
 
-  
   h3 {
-    @apply text-[clamp(18px,_6vw,_25px)] mb-3
+    @apply text-[clamp(18px,_6vw,_25px)] mb-3;
+  }
+  h4 {
+    @apply text-[clamp(16px,_6vw,_20px)] mb-3;
   }
 
   p {
-    @apply text-body leading-loose mb-7
+    @apply text-body leading-loose mb-7;
   }
-
-
 }
 @layer components {
   .container {
-    @apply max-w-[1200px] w-full mx-auto px-4
+    @apply max-w-[1200px] w-full mx-auto px-4;
   }
 }
-@layer utilities {}
+@layer utilities {
+}

@@ -1,20 +1,27 @@
+import { devBaseImgUrl } from "@/helper/functions-general.jsx";
+import AsideAuthor from "@/partials/AsideAuthor.jsx";
+import AsideLatest from "@/partials/AsideLatest.jsx";
+import AsideNewsletter from "@/partials/AsideNewsletter.jsx";
+import AsideSocialMedia from "@/partials/AsideSocialMedia.jsx";
 import MetaInfo from "@/partials/MetaInfo";
+import { Calendar, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Recent = () => {
   return (
     <section className="py-20 bg-white">
       <div className="container">
-        <div className="grid grid-cols-[3.5fr_1fr] gap-10">
+        <div className="grid grid-cols-[3.5fr_1.5fr] gap-10">
           <div>
             <h3>Recent Recipes</h3>
 
             <div className="card flex items-center mb-10">
               <figure className="basis-3/4">
                 <img
-                  src="https://via.placeholder.com/350x200"
+                  src={`${devBaseImgUrl}/pasta-1.jpg`}
                   alt=""
-                  className="w-[400px] h-[300px] object-cover"
+                  className="w-[400px] h-[250px] object-cover"
                 />
               </figure>
               <article className="p-10">
@@ -31,9 +38,9 @@ const Recent = () => {
             <div className="card flex items-center mb-10">
               <figure className="basis-3/4">
                 <img
-                  src="https://via.placeholder.com/350x200"
+                  src={`${devBaseImgUrl}/pasta-1.jpg`}
                   alt=""
-                  className="w-[400px] h-[300px] object-cover"
+                  className="w-[400px] h-[250px] object-cover"
                 />
               </figure>
               <article className="p-10">
@@ -50,9 +57,9 @@ const Recent = () => {
             <div className="card flex items-center mb-10">
               <figure className="basis-3/4">
                 <img
-                  src="https://via.placeholder.com/350x200"
+                  src={`${devBaseImgUrl}/pasta-1.jpg`}
                   alt=""
-                  className="w-[400px] h-[300px] object-cover"
+                  className="w-[400px] h-[250px] object-cover"
                 />
               </figure>
               <article className="p-10">
@@ -66,7 +73,12 @@ const Recent = () => {
               </article>
             </div>
           </div>
-          <aside></aside>
+          <aside>
+            <AsideAuthor />
+            <AsideNewsletter />
+            <AsideLatest />
+            <AsideSocialMedia />
+          </aside>
         </div>
       </div>
     </section>

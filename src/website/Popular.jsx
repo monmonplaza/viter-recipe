@@ -1,88 +1,124 @@
-import MetaAuthor from "@/partials/MetaAuthor";
-import MetaInfo from "@/partials/MetaInfo";
+import { devBaseImgUrl } from "@/helper/functions-general.jsx";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Popular = () => {
   return (
-    <>
-      <section className="bg-white py-20">
-        <div className="container">
-          <div className="grid grid-cols-3 gap-10">
-            <div className="card">
-              <img
-                src="https://via.placeholder.com/290x200"
-                alt=""
-                className="w-full"
-              />
+    <section className="py-24 bg-dark text-light">
+      <div className="container">
+        <h2 className="text-center mb-10">Most Popular Recipes this Week</h2>
+        <div className="grid grid-cols-5 gap-5">
+          <div className="capitalize">
+            <img
+              src={`${devBaseImgUrl}/pasta-1.jpg`}
+              alt=""
+              className="w-full mb-2"
+            />
+            <Link to="/" className="font-suraMedium font-bold ">
+              Broad beans, garlic & feta brusschetra
+            </Link>
+          </div>
 
-              <div className="py-5">
-                <MetaInfo tags="super easy" time="30mins" />
-                <h3>Cheesy pasta with crispy bacon and mozzarella cheese</h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Commodi, ut quia? Accusantium eius minus perferendis odio!
-                  Rerum vitae quas nostrum quisquam explicabo aliquid? Sed,
-                  illum?
-                </p>
-                <MetaAuthor
-                  image="https://via.placeholder.com/40x40"
-                  date="May 23, 2003"
-                  author="Maggy Dawson"
-                />
-              </div>
-            </div>
+          <div className="capitalize">
+            <img
+              src={`${devBaseImgUrl}/pasta-1.jpg`}
+              alt=""
+              className="w-full mb-2"
+            />
+            <Link to="/" className="font-suraMedium font-bold ">
+              Broad beans, garlic & feta brusschetra
+            </Link>
+          </div>
 
-            <div className="card">
-              <img
-                src="https://via.placeholder.com/290x200"
-                alt=""
-                className="w-full"
-              />
+          <div className="capitalize">
+            <img
+              src={`${devBaseImgUrl}/pasta-1.jpg`}
+              alt=""
+              className="w-full mb-2"
+            />
+            <Link to="/" className="font-suraMedium font-bold ">
+              Broad beans, garlic & feta brusschetra
+            </Link>
+          </div>
 
-              <div className="py-5">
-                <MetaInfo tags="super easy" time="30mins" />
-                <h3>Cheesy pasta with crispy bacon and mozzarella cheese</h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Commodi, ut quia? Accusantium eius minus perferendis odio!
-                  Rerum vitae quas nostrum quisquam explicabo aliquid? Sed,
-                  illum?
-                </p>
-                <MetaAuthor
-                  image="https://via.placeholder.com/40x40"
-                  date="May 23, 2003"
-                  author="Maggy Dawson"
-                />
-              </div>
-            </div>
+          <div className="capitalize">
+            <img
+              src={`${devBaseImgUrl}/pasta-1.jpg`}
+              alt=""
+              className="w-full mb-2"
+            />
+            <Link to="/" className="font-suraMedium font-bold ">
+              Broad beans, garlic & feta brusschetra
+            </Link>
+          </div>
 
-            <div className="card">
-              <img
-                src="https://via.placeholder.com/290x200"
-                alt=""
-                className="w-full"
-              />
+          <div className="capitalize">
+            <img
+              src={`${devBaseImgUrl}/pasta-1.jpg`}
+              alt=""
+              className="w-full mb-2"
+            />
+            <Link to="/" className="font-suraMedium font-bold ">
+              Broad beans, garlic & feta brusschetra
+            </Link>
+          </div>
 
-              <div className="py-5">
-                <MetaInfo tags="super easy" time="30mins" />
-                <h3>Cheesy pasta with crispy bacon and mozzarella cheese</h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Commodi, ut quia? Accusantium eius minus perferendis odio!
-                  Rerum vitae quas nostrum quisquam explicabo aliquid? Sed,
-                  illum?
-                </p>
-                <MetaAuthor
-                  image="https://via.placeholder.com/40x40"
-                  date="May 23, 2003"
-                  author="Maggy Dawson"
-                />
-              </div>
-            </div>
+          <div className="capitalize">
+            <img
+              src={`${devBaseImgUrl}/pasta-1.jpg`}
+              alt=""
+              className="w-full mb-2"
+            />
+            <Link to="/" className="font-suraMedium font-bold ">
+              Broad beans, garlic & feta brusschetra
+            </Link>
+          </div>
+
+          <div className="capitalize">
+            <img
+              src={`${devBaseImgUrl}/pasta-1.jpg`}
+              alt=""
+              className="w-full mb-2"
+            />
+            <Link to="/" className="font-suraMedium font-bold ">
+              Broad beans, garlic & feta brusschetra
+            </Link>
+          </div>
+
+          <div className="capitalize">
+            <img
+              src={`${devBaseImgUrl}/pasta-1.jpg`}
+              alt=""
+              className="w-full mb-2"
+            />
+            <Link to="/" className="font-suraMedium font-bold ">
+              Broad beans, garlic & feta brusschetra
+            </Link>
+          </div>
+
+          <div className="capitalize">
+            <img
+              src={`${devBaseImgUrl}/pasta-1.jpg`}
+              alt=""
+              className="w-full mb-2"
+            />
+            <Link to="/" className="font-suraMedium font-bold ">
+              Broad beans, garlic & feta brusschetra
+            </Link>
+          </div>
+          <div className="capitalize">
+            <img
+              src={`${devBaseImgUrl}/pasta-1.jpg`}
+              alt=""
+              className="w-full mb-2"
+            />
+            <Link to="/" className="font-suraMedium font-bold ">
+              Broad beans, garlic & feta brusschetra
+            </Link>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

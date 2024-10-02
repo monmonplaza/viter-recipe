@@ -5,7 +5,7 @@ import React from "react";
 const Banner = () => {
   return (
     <>
-      <section className=" relative">
+      <section className=" relative bg-[url('../public/img/bg-banner.webp')] bg-cover bg-center bg-no-repeat">
         <div className="container ">
           <div className="flex items-center min-h-[70vh]  ">
             <div className="basis-1/2">

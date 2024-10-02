@@ -14,23 +14,27 @@ export default {
         light: "hsla(var(--light) / <alpha-value>)",
         dark: "hsla(var(--dark) / <alpha-value>)",
         body: "hsla(var(--body) / <alpha-value>)",
+        accent: "hsla(var(--accent) / <alpha-value>)",
       },
       backgroundColor: {
         light: "hsla(var(--light) / <alpha-value>)",
         dark: "hsla(var(--dark) / <alpha-value>)",
         body: "hsla(var(--body) / <alpha-value>)",
+        accent: "hsla(var(--accent) / <alpha-value>)",
       },
 
       stroke: {
         light: "hsla(var(--light) / <alpha-value>)",
         dark: "hsla(var(--dark) / <alpha-value>)",
         body: "hsla(var(--body) / <alpha-value>)",
+        accent: "hsla(var(--accent) / <alpha-value>)",
       },
 
       fill: {
         light: "hsla(var(--light) / <alpha-value>)",
         dark: "hsla(var(--dark) / <alpha-value>)",
         body: "hsla(var(--body) / <alpha-value>)",
+        accent: "hsla(var(--accent) / <alpha-value>)",
       },
     },
   },

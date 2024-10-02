@@ -2,7 +2,7 @@ import React from "react";
 
 const Books = () => {
   return (
-    <section className="py-20">
+    <section className="py-20 bg-[url('./public/img/bg-banner-books.webp')] bg-cover bg-center bg-no-repeat">
       <div className="container">
         <div className=" max-w-[430px] w-full">
           <h2>Check out my newest vegan recipes books</h2>
