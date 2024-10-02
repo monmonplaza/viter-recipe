@@ -4,7 +4,6 @@ import AsideLatest from "@/partials/AsideLatest.jsx";
 import AsideNewsletter from "@/partials/AsideNewsletter.jsx";
 import AsideSocialMedia from "@/partials/AsideSocialMedia.jsx";
 import MetaInfo from "@/partials/MetaInfo";
-import { Calendar, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
