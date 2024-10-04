@@ -1,76 +1,45 @@
 import { devBaseImgUrl } from "@/helper/functions-general.jsx";
+import { recipes } from "@/website/data.jsx";
 import { Calendar } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
 const AsideLatest = () => {
+  const allRecent = recipes.filter((item) => {
+    return (
+      Math.floor(
+        Math.abs(new Date(item.published) - new Date()) / (1000 * 60 * 60 * 24)
+      ) < 7
+    );
+  });
+
   return (
     <>
       <div className="aside-box mb-10">
-        <h4>Lastest Posts</h4>
-        <div className="card flex items-center gap-5 mb-5">
-          <img
-            src={`${devBaseImgUrl}/pasta-1.jpg`}
-            alt=""
-            className="w-[120px] object-cover"
-          />
-          <div>
-            <small className="flex gap-2 items-center text-body text-xs mb-2">
-              <Calendar className="" size={13} /> May 23, 2003
-            </small>
-            <Link to="/" className="text-base font-bold leading-tight">
-              Life is a combination of magic and pasta
-            </Link>
-          </div>
-        </div>
+        <h4>Latest Recipe</h4>
 
-        <div className="card flex items-center gap-5 mb-5">
-          <img
-            src={`${devBaseImgUrl}/pasta-1.jpg`}
-            alt=""
-            className="w-[120px] object-cover"
-          />
-          <div>
-            <small className="flex gap-2 items-center text-body text-xs mb-2">
-              <Calendar className="" size={13} /> May 23, 2003
-            </small>
-            <Link to="/" className="text-base font-bold leading-tight">
-              Life is a combination of magic and pasta
-            </Link>
-          </div>
-        </div>
-
-        <div className="card flex items-center gap-5 mb-5">
-          <img
-            src={`${devBaseImgUrl}/pasta-1.jpg`}
-            alt=""
-            className="w-[120px] object-cover"
-          />
-          <div>
-            <small className="flex gap-2 items-center text-body text-xs mb-2">
-              <Calendar className="" size={13} /> May 23, 2003
-            </small>
-            <Link to="/" className="text-base font-bold leading-tight">
-              Life is a combination of magic and pasta
-            </Link>
-          </div>
-        </div>
-
-        <div className="card flex items-center gap-5 mb-5">
-          <img
-            src={`${devBaseImgUrl}/pasta-1.jpg`}
-            alt=""
-            className="w-[120px] object-cover"
-          />
-          <div>
-            <small className="flex gap-2 items-center text-body text-xs mb-2">
-              <Calendar className="" size={13} /> May 23, 2003
-            </small>
-            <Link to="/" className="text-base font-bold leading-tight">
-              Life is a combination of magic and pasta
-            </Link>
-          </div>
-        </div>
+        {allRecent.slice(0, 4).map((item, key) => {
+          return (
+            <div className="card flex items-center gap-5 mb-5" key={key}>
+              <img
+                src={`${devBaseImgUrl}/${item.thumbnail}`}
+                alt=""
+                className="w-[140px] h-[120px] object-cover"
+              />
+              <div>
+                <small className="flex gap-2 items-center text-body text-xs mb-2">
+                  <Calendar className="" size={13} /> {item.published}
+                </small>
+                <Link
+                  to={`/recipe/${item.slug}`}
+                  className="text-sm font-bold leading-tight"
+                >
+                  {item.title}
+                </Link>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </>
   );

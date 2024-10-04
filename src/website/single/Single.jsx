@@ -4,34 +4,58 @@ import AsideLatest from "@/partials/AsideLatest.jsx";
 import AsideNewsletter from "@/partials/AsideNewsletter.jsx";
 import Footer from "@/partials/Footer.jsx";
 import Header from "@/partials/Header.jsx";
-import MetaAuthor from "@/partials/MetaAuthor.jsx";
-import MetaInfo from "@/partials/MetaInfo.jsx";
+import { Clock, Grid2X2, Tag } from "lucide-react";
 import React from "react";
+import Markdown from "react-markdown";
+import { useParams } from "react-router-dom";
+import { recipes } from "../data.jsx";
 
 const Single = () => {
+  const { slug } = useParams();
+
+  const getRecipe = () => {
+    return recipes.filter((item) => item.slug === slug)[0];
+  };
+
+  const [updateServing, setUpdatedServing] = React.useState(
+    getRecipe().serving
+  );
+
+  const handleComputePerServing = (e) => {
+    setUpdatedServing(e.target.value);
+  };
+
   return (
     <>
       <Header />
-      <div className="banner">
+      <div className="banner bg-[url('../public/img/bg-single.webp')] bg-cover">
         <div className="container">
-          <div className="grid grid-cols-2 items-center min-h-[70vh]  gap-10 ">
-            <div className="basis-1/2">
-              <MetaInfo tags="Tips & Tricks" time="20mins" />
+          <div className="md:grid grid-cols-2 items-center min-h-[70vh]  gap-10 py-14">
+            <div className="max-w-[500px]">
+              <div className="flex gap-6 items-center mb-3">
+                <small className="flex gap-2 items-center text-body text-xs">
+                  <Clock size={13} /> {getRecipe().info_time}
+                </small>
+                <small className="flex gap-2 items-center text-body text-xs uppercase">
+                  <Tag size={13} /> {getRecipe().info_tag}
+                </small>
+                {getRecipe().info_category !== "" && (
+                  <small className="flex gap-2 items-center text-body text-xs uppercase">
+                    <Grid2X2 size={13} />
+                    {getRecipe().info_category}
+                  </small>
+                )}
+              </div>
 
-              <h1>Green Veggies with Flavoured Butter</h1>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto
-                eligendi vitae deserunt sunt quae possimus quibusdam laudantium
-                modi. Explicabo minus perferendis quos quisquam temporibus ea
-                sequi praesentium dignissimos, aperiam exercitationem?
-              </p>
+              <h1>{getRecipe().title}</h1>
+              <p>{getRecipe().description}</p>
             </div>
 
-            <figure>
+            <figure className="shadow-md">
               <img
-                src={`${devBaseImgUrl}/pasta-1.jpg`}
+                src={`${devBaseImgUrl}/${getRecipe().thumbnail}`}
                 alt=""
-                className="w-full"
+                className="w-full h-[500px] object-cover"
               />
             </figure>
           </div>
@@ -40,7 +64,7 @@ const Single = () => {
 
       <section className="bg-white py-20">
         <div className="container">
-          <div className="grid grid-cols-[3.5fr_1.5fr] gap-10">
+          <div className="md:grid grid-cols-[3.5fr_1.5fr] gap-10">
             <article>
               <div className="mb-14">
                 <div className="flex justify-between items-center border-b border-gray-100 mb-5">
@@ -49,124 +73,83 @@ const Single = () => {
                     <input
                       type="text"
                       className="border border-gray-1 w-[30px] h-[30px] p-1 text-center !font-poppinsRegular"
-                      value={3}
+                      onChange={(e) => handleComputePerServing(e)}
+                      value={updateServing}
                     />
                     <span className="font-bold">Serving</span>
                   </label>
                 </div>
 
-                <ul className="grid grid-cols-2 gap-5">
-                  <li>
-                    <span>1</span>cup - soy sauce
-                  </li>
-                  <li>
-                    <span>1</span>cup - soy sauce
-                  </li>
-                  <li>
-                    <span>1</span>cup - soy sauce
-                  </li>
-                  <li>
-                    <span>1</span>cup - soy sauce
-                  </li>
-                  <li>
-                    <span>1</span>cup - soy sauce
-                  </li>
+                <ul className="space-y-2.5 ">
+                  {getRecipe().ingredients.map((item, key) => {
+                    return (
+                      <li key={key} className="grid grid-cols-[50px_70px_1fr]">
+                        <span className="pr-0.5">
+                          {item.measurement
+                            ? Math.round(
+                                ((Number(item.measurement) /
+                                  Number(getRecipe().serving)) *
+                                  updateServing +
+                                  Number.EPSILON) *
+                                  100
+                              ) / 100
+                            : ""}
+                        </span>
 
-                  <li>
-                    <span>1</span>cup - soy sauce
-                  </li>
-                  <li>
-                    <span>1</span>cup - soy sauce
-                  </li>
-                  <li>
-                    <span>1</span>cup - soy sauce
-                  </li>
-                  <li>
-                    <span>1</span>cup - soy sauce
-                  </li>
-                  <li>
-                    <span>1</span>cup - soy sauce
-                  </li>
+                        <span className="pr-1.5">{item.unit}</span>
+                        {item.title}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               <div>
                 <div className="border-b border-gray-100 mb-5">
                   <h3>Direction</h3>
                 </div>
-                <h4>
-                  01 - Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Consectetur, quas!
-                </h4>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Praesentium alias, laborum officia culpa voluptates aspernatur
-                  dicta totam inventore ducimus quod.
-                </p>
-
-                <h4>
-                  01 - Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Consectetur, quas!
-                </h4>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Praesentium alias, laborum officia culpa voluptates aspernatur
-                  dicta totam inventore ducimus quod.
-                </p>
-
-                <h4>
-                  01 - Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Consectetur, quas!
-                </h4>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Praesentium alias, laborum officia culpa voluptates aspernatur
-                  dicta totam inventore ducimus quod.
-                </p>
-
-                <h4>
-                  01 - Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Consectetur, quas!
-                </h4>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-                  voluptates esse amet odit laboriosam, veritatis neque adipisci
-                  reiciendis, beatae totam, ducimus dolor mollitia optio nam
-                  placeat ipsam? Fugiat porro voluptatem sed ipsam distinctio
-                  modi at officia, quisquam unde ullam nostrum aperiam eaque sit
-                  laudantium non recusandae eligendi esse vitae ad.
-                </p>
+                <Markdown>{getRecipe().instruction}</Markdown>
               </div>
 
               <div className="nutritional-facts my-10">
                 <div>
-                  <h4>Nutritional Facts</h4>
-                  <ul className="grid grid-cols-5 bg-accent justify-center divide-white divide-x-2">
+                  <h4>Nutritional Facts Per Serving</h4>
+                  <ul className="grid grid-cols-2 gap-1 md:gap-0 md:grid-cols-5 bg-accent justify-center divide-white md:divide-x-2 ">
                     <li className=" font-poppinsBold text-xs  p-2 justify-self-center text-center w-full ">
                       Fats
-                      <span className="block  font-poppinsRegular">20g</span>
+                      <span className="block  font-poppinsRegular">
+                        {getRecipe().fats}
+                      </span>
                     </li>
                     <li className=" font-poppinsBold text-xs  p-2 justify-self-center text-center w-full ">
                       Sugars
-                      <span className="block  font-poppinsRegular">20g</span>
+                      <span className="block  font-poppinsRegular">
+                        {getRecipe().sugar}
+                      </span>
                     </li>
                     <li className=" font-poppinsBold text-xs  p-2 justify-self-center text-center w-full ">
                       Sodium
-                      <span className="block  font-poppinsRegular">20g</span>
+                      <span className="block  font-poppinsRegular">
+                        {getRecipe().sodium}
+                      </span>
                     </li>
                     <li className=" font-poppinsBold text-xs  p-2 justify-self-center text-center w-full ">
                       Carbohydrates
-                      <span className="block  font-poppinsRegular">20g</span>
+                      <span className="block  font-poppinsRegular">
+                        {getRecipe().carbohydrates}
+                      </span>
                     </li>
                     <li className=" font-poppinsBold text-xs  p-2 justify-self-center text-center w-full ">
                       Cholesterol
-                      <span className="block  font-poppinsRegular">20g</span>
+                      <span className="block  font-poppinsRegular">
+                        {getRecipe().cholesterol}
+                      </span>
                     </li>
                   </ul>
                 </div>
               </div>
             </article>
             <aside>
-              <AsideAuthor />
+              <AsideAuthor data={getRecipe()} />
               <AsideNewsletter />
               <AsideLatest />
             </aside>

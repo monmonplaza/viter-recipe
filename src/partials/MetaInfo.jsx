@@ -1,16 +1,22 @@
+import { Clock, Grid2X2, Tag } from "lucide-react";
 import React from "react";
-import { Clock, Tag } from "lucide-react";
 
-const MetaInfo = ({ time, tags }) => {
+const MetaInfo = ({ data = {} }) => {
   return (
     <>
       <div className="flex gap-6 items-center mb-3">
         <small className="flex gap-2 items-center text-body text-xs">
-          <Clock className="" size={13} /> {time}
+          <Clock size={13} /> {data?.item.info_time}
         </small>
         <small className="flex gap-2 items-center text-body text-xs uppercase">
-          <Tag className="" size={13} /> {tags}
+          <Tag size={13} /> {data?.item.info_tag}
         </small>
+        {data?.item.info_category !== "" && (
+          <small className="flex gap-2 items-center text-body text-xs uppercase">
+            <Grid2X2 size={13} />
+            {data?.item.info_category}
+          </small>
+        )}
       </div>
     </>
   );

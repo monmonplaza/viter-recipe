@@ -1,4 +1,6 @@
+import { devBaseImgUrl } from "@/helper/functions-general.jsx";
 import React from "react";
+import { books } from "../data.jsx";
 
 const Books = () => {
   return (
@@ -13,21 +15,17 @@ const Books = () => {
           </p>
 
           <div className="grid grid-cols-3 gap-5">
-            <img
-              src="https://via.placeholder.com/150x220"
-              alt=""
-              className="w-full"
-            />
-            <img
-              src="https://via.placeholder.com/150x220"
-              alt=""
-              className="w-full"
-            />
-            <img
-              src="https://via.placeholder.com/150x220"
-              alt=""
-              className="w-full"
-            />
+            {books.map((item, key) => {
+              return (
+                <a href={`${item.url}`} key={key}>
+                  <img
+                    src={`${devBaseImgUrl}/${item.thumbnail}`}
+                    alt=""
+                    className="w-full"
+                  />
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -1,19 +1,20 @@
+import { devBaseImgUrl } from "@/helper/functions-general.jsx";
 import React from "react";
+import { Link } from "react-router-dom";
 
-const AsideAuthor = () => {
+const AsideAuthor = ({ data }) => {
   return (
-    <div className="text-center">
+    <div className="text-center mb-5">
       <img
-        src="https://via.placeholder.com/180x180"
+        src={`${devBaseImgUrl}/${data.author_image}`}
         alt=""
-        className="rounded-full mb-5 mx-auto"
+        className="rounded-full mb-5 mx-auto size-24"
       />
 
-      <h4>Hi! I'm Meggy</h4>
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. A similique
-        nemo velit sapiente, totam iusto corporis fuga iure voluptates ullam?
-      </p>
+      <h4>Hi! I'm {data.author_name}</h4>
+      <Link to={`/chef/${data.author_name.toLowerCase().replace(/\s+/g, "-")}`}>
+        View Profile
+      </Link>
     </div>
   );
 };
