@@ -1,6 +1,6 @@
 import { devBaseImgUrl } from "@/helper/functions-general.jsx";
-import MetaAuthor from "@/partials/MetaAuthor";
-import MetaInfo from "@/partials/MetaInfo";
+import MetaAuthor from "@/website/partials/MetaAuthor.jsx";
+import MetaInfo from "@/website/partials/MetaInfo.jsx";
 import React from "react";
 import { Link } from "react-router-dom";
 import { recipes } from "../data.jsx";
@@ -12,23 +12,23 @@ const Feature = () => {
         <div className="container">
           <div className="grid md:grid-cols-3 gap-10">
             {recipes
-              .filter((item) => item.isFeature === true)
+              .filter((item) => item.recipe_isFeature === true)
               .slice(0, 3)
               .map((item, key) => {
                 return (
                   <div className="card" key={key}>
                     <img
-                      src={`${devBaseImgUrl}/${item.thumbnail}`}
+                      src={`${devBaseImgUrl}/${item.recipe_thumbnail}`}
                       alt=""
                       className="w-full h-[330px] object-cover"
                     />
 
                     <div className="py-5">
                       <MetaInfo data={{ item }} />
-                      <Link to={`/recipe/${item.slug}`}>
-                        <h3>{item.title}</h3>
+                      <Link to={`/recipe/${item.recipe_slug}`}>
+                        <h3>{item.recipe_title}</h3>
                       </Link>
-                      <p className="line-clamp-4">{item.description}</p>
+                      <p className="line-clamp-4">{item.recipe_description}</p>
                       <MetaAuthor data={{ item }} />
                     </div>
                   </div>

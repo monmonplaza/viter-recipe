@@ -5,7 +5,7 @@ import { recipes } from "../data.jsx";
 
 const Popular = () => {
   const allPopular = recipes.filter((item) => {
-    return item.isFeature !== true && item.isBanner !== true;
+    return item.recipe_isFeature !== true && item.recipe_isBanner !== true;
   });
 
   return (
@@ -17,15 +17,15 @@ const Popular = () => {
             return (
               <div className="capitalize" key={key}>
                 <img
-                  src={`${devBaseImgUrl}/${item.thumbnail}`}
+                  src={`${devBaseImgUrl}/${item.recipe_thumbnail}`}
                   alt=""
                   className="w-full min-h-[200px] object-cover mb-2"
                 />
                 <Link
-                  to={`/recipe/${item.slug}`}
+                  to={`/recipe/${item.recipe_slug}`}
                   className="font-suraMedium font-bold hover:text-accent text-base text-center block "
                 >
-                  {item.title}
+                  {item.recipe_title}
                 </Link>
               </div>
             );

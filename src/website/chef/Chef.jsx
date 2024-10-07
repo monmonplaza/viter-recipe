@@ -1,10 +1,10 @@
 import { devBaseImgUrl } from "@/helper/functions-general.jsx";
-import AsideLatest from "@/partials/AsideLatest.jsx";
-import AsideNewsletter from "@/partials/AsideNewsletter.jsx";
-import AsideSocialMedia from "@/partials/AsideSocialMedia.jsx";
-import CallToAction from "@/partials/CallToAction.jsx";
-import Footer from "@/partials/Footer.jsx";
-import Header from "@/partials/Header.jsx";
+import AsideLatest from "@/website/partials/AsideLatest.jsx";
+import AsideNewsletter from "@/website/partials/AsideNewsletter.jsx";
+import AsideSocialMedia from "@/website/partials/AsideSocialMedia.jsx";
+import CallToAction from "@/website/partials/CallToAction.jsx";
+import Footer from "@/website/partials/Footer.jsx";
+import Header from "@/website/partials/Header.jsx";
 import React from "react";
 import Markdown from "react-markdown";
 import { Link, useParams } from "react-router-dom";
@@ -18,7 +18,7 @@ const Chef = () => {
   });
 
   const getChefRecipes = recipes.filter((item) => {
-    return item.author_name === getChefInfo[0].chef_name;
+    return item.recipe_author_name === getChefInfo[0].chef_name;
   });
 
   return (
@@ -55,16 +55,16 @@ const Chef = () => {
               <div className="grid grid-cols-3 gap-5">
                 {getChefRecipes.slice(0, 3).map((recipe, key) => {
                   return (
-                    <Link to={`/recipe/${recipe.slug}`} key={key}>
+                    <Link to={`/recipe/${recipe.recipe_slug}`} key={key}>
                       <div className="card">
                         <img
-                          src={`${devBaseImgUrl}/${recipe.thumbnail}`}
+                          src={`${devBaseImgUrl}/${recipe.recipe_thumbnail}`}
                           alt=""
                           className="mb-3 w-full h-[170px] object-cover"
                         />
-                        <h4 className="mb-2 ">{recipe.title}</h4>
+                        <h4 className="mb-2 ">{recipe.recipe_title}</h4>
                         <p className="line-clamp-3 mb-3">
-                          {recipe.description}
+                          {recipe.recipe_description}
                         </p>
                       </div>
                     </Link>

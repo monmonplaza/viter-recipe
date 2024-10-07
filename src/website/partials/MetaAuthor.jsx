@@ -3,12 +3,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const MetaAuthor = ({ data = {} }) => {
-  const slug = data?.item.author_name.toLowerCase().replace(/\s+/g, "-");
+  const slug = data?.item.recipe_author_name.toLowerCase().replace(/\s+/g, "-");
+
+  console.log(data);
   return (
     <>
       <div className="flex items-center gap-2 ">
         <img
-          src={`${devBaseImgUrl}/${data?.item.author_image}`}
+          src={`${devBaseImgUrl}/${data?.item.recipe_author_image}`}
           alt=""
           className="rounded-full w-[50px] h-[50px]"
         />
@@ -17,11 +19,11 @@ const MetaAuthor = ({ data = {} }) => {
             to={`/chef/${slug}`}
             className="mb-2 text-dark uppercase font-bold text-xs leading-none inline-block"
           >
-            {data?.item.author_name}
+            {data?.item.recipe_author_name}
           </Link>
 
           <p className="mb-0 leading-none text-[12px]">
-            {data?.item.published}
+            {data?.item.recipe_published}
           </p>
         </div>
       </div>

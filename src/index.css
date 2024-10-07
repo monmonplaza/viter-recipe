@@ -35,7 +35,7 @@
   --dark: 0deg 0% 13%;
   --light: 0deg 0% 95%;
   --body: 0deg 0% 50%;
-  --accent: 51deg 99% 71%;
+  --accent: 51deg 89% 45%;
 }
 
 @layer base {
@@ -70,15 +70,111 @@
   p {
     @apply text-body leading-loose mb-7;
   }
+
+  button {
+    @apply cursor-pointer transition-all duration-300;
+  }
+
+  button:disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
 }
 @layer components {
   .container {
     @apply max-w-[1200px] w-full mx-auto px-4;
   }
 
+  table {
+    @apply w-full text-xs;
+  }
+
+  table th {
+    @apply text-left;
+  }
+
+  table td,
+  table th {
+    @apply p-2;
+  }
+
+  table thead tr,
+  table tbody tr {
+    @apply border-b border-gray-300;
+  }
+
+  table tbody tr:last-child {
+    @apply border-none;
+  }
+
+  table tbody tr td {
+    @apply opacity-70;
+  }
+
+  .input-wrap {
+    @apply relative mb-1.5;
+  }
+
+  .input-wrap input,
+  .input-wrap select,
+  .input-wrap textarea {
+    @apply px-1.5 py-1 border border-gray-300 rounded-md w-full text-sm focus:border-blue-400 focus:bg-blue-50 outline-none;
+  }
+
+  .input-wrap label {
+    @apply text-xs;
+  }
+  .input-wrap:has(:focus) label {
+    @apply text-blue-700;
+  }
+
+  .input-wrap textarea {
+    @apply resize-none max-h-[500px] h-full leading-relaxed;
+  }
+
+  .input-wrap textarea.xl {
+    @apply max-h-[600px] h-full  min-h-[600px] overflow-auto;
+  }
+
+  .input-wrap .error-msg {
+    @apply absolute  text-red-500 -top-4 right-1;
+  }
+
+  /* TABLE */
+
+  .table-wrapper {
+    @apply m-2 mb-1.5 p-4  rounded-md border-gray-300 border;
+  }
+  .table-wrapper table {
+    @apply w-full text-xs;
+  }
+
+  .primary-wrapper {
+    @apply w-full grid grid-rows-[auto_1fr_auto];
+  }
+
+  .primary-wrapper .main-wrapper {
+    @apply bg-white pb-0.5 rounded-md border border-gray-300 shadow-sm;
+  }
+
+  /* BUTTONS */
+
   .btn {
-    @apply bg-accent px-3 py-2;
+    @apply bg-accent px-3 py-2 flex gap-2 items-center justify-center  rounded-md text-xs transition-all;
+  }
+
+  .modal-action {
+    @apply p-2 flex justify-end gap-2 border-t border-gray-300 [&>*]:w-1/2;
+    & .btn-save {
+      @apply bg-accent hover:bg-opacity-90 text-white;
+    }
+
+    & .btn-cancel {
+      @apply bg-gray-200 hover:bg-gray-300 text-gray-600;
+    }
   }
 }
 @layer utilities {
+  .center-all {
+    @apply flex items-center justify-center;
+  }
 }

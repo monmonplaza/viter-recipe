@@ -1,5 +1,5 @@
-import Footer from "@/partials/Footer.jsx";
-import Header from "@/partials/Header.jsx";
+import Footer from "@/website/partials/Footer.jsx";
+import Header from "@/website/partials/Header.jsx";
 import React from "react";
 import { Link } from "react-router-dom";
 import Banner from "./Banner";

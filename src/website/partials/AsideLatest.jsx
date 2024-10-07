@@ -8,7 +8,8 @@ const AsideLatest = () => {
   const allRecent = recipes.filter((item) => {
     return (
       Math.floor(
-        Math.abs(new Date(item.published) - new Date()) / (1000 * 60 * 60 * 24)
+        Math.abs(new Date(item.recipe_published) - new Date()) /
+          (1000 * 60 * 60 * 24)
       ) < 7
     );
   });
@@ -22,19 +23,19 @@ const AsideLatest = () => {
           return (
             <div className="card flex items-center gap-5 mb-5" key={key}>
               <img
-                src={`${devBaseImgUrl}/${item.thumbnail}`}
+                src={`${devBaseImgUrl}/${item.recipe_thumbnail}`}
                 alt=""
                 className="w-[140px] h-[120px] object-cover"
               />
               <div>
                 <small className="flex gap-2 items-center text-body text-xs mb-2">
-                  <Calendar className="" size={13} /> {item.published}
+                  <Calendar className="" size={13} /> {item.recipe_published}
                 </small>
                 <Link
-                  to={`/recipe/${item.slug}`}
+                  to={`/recipe/${item.recipe_slug}`}
                   className="text-sm font-bold leading-tight"
                 >
-                  {item.title}
+                  {item.recipe_title}
                 </Link>
               </div>
             </div>

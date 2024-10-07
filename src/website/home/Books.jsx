@@ -17,9 +17,9 @@ const Books = () => {
           <div className="grid grid-cols-3 gap-5">
             {books.map((item, key) => {
               return (
-                <a href={`${item.url}`} key={key}>
+                <a href={`${item.book_url}`} key={key}>
                   <img
-                    src={`${devBaseImgUrl}/${item.thumbnail}`}
+                    src={`${devBaseImgUrl}/${item.book_thumbnail}`}
                     alt=""
                     className="w-full"
                   />
