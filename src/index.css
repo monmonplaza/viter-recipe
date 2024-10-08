@@ -32,10 +32,15 @@
 }
 
 :root {
-  --dark: 0deg 0% 13%;
   --light: 0deg 0% 95%;
+  --dark: 0deg 0% 13%;
   --body: 0deg 0% 50%;
   --accent: 51deg 89% 45%;
+  --alert: 0deg 92% 45%;
+  --success: 131deg 75% 41%;
+  --info: 220deg 75% 41%;
+  --warning: 36deg 60% 50%;
+  --skeleton: 36deg 60% 50%;
 }
 
 @layer base {
@@ -164,11 +169,21 @@
 
   .modal-action {
     @apply p-2 flex justify-end gap-2 border-t border-gray-300 [&>*]:w-1/2;
-    & .btn-save {
+    .btn-save {
       @apply bg-accent hover:bg-opacity-90 text-white;
     }
 
-    & .btn-cancel {
+    .btn-alert {
+      @apply bg-alert hover:bg-opacity-90 text-white;
+    }
+
+    .btn-warning {
+      @apply bg-warning hover:bg-opacity-90 text-white;
+    }
+    .btn-success {
+      @apply bg-success hover:bg-opacity-90 text-white;
+    }
+    .btn-cancel {
       @apply bg-gray-200 hover:bg-gray-300 text-gray-600;
     }
   }
@@ -176,5 +191,36 @@
 @layer utilities {
   .center-all {
     @apply flex items-center justify-center;
+  }
+
+  .loading-bar {
+    @apply overflow-hidden relative;
+  }
+  .loading-bar::after {
+    @apply content-[''] absolute top-0 left-0 w-full h-full  bg-gradient-to-r from-transparent via-gray-300 to-transparent animate-loading;
+  }
+}
+
+.spinner circle {
+  fill: none;
+  stroke-width: 6;
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  animation: dash 1s ease-in-out infinite;
+}
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dashoffset: -110px;
   }
 }

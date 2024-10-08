@@ -6,7 +6,7 @@ const PageTitleAdd = ({ title = "" }) => {
     <div>
       <div className="flex justify-between items-center mb-5">
         <h3 className="font-poppinsBold mb-0">{title}</h3>
-        <button className="btn text-xs gap-1">
+        <button className="btn text-xs gap-1 text-white">
           <Plus size={14} /> Add New
         </button>
       </div>

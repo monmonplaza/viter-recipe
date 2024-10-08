@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import RecipeCategory from "./pages/developer/category/RecipeCategory.jsx";
 import RecipeCategoryList from "./pages/developer/category/RecipeCategoryList.jsx";
+import Chefs from "./pages/developer/chef/Chefs.jsx";
 import Recipes from "./pages/developer/recipes/Recipes.jsx";
 import Category from "./website/category/Category.jsx";
 import Chef from "./website/chef/Chef.jsx";
@@ -33,6 +34,7 @@ function App() {
         <Route path="/chef/:slug" element={<Chef />} />
         <Route path="/admin/recipes" element={<Recipes />} />
         <Route path="/admin/category" element={<RecipeCategory />} />
+        <Route path="/admin/chefs" element={<Chefs />} />
       </Routes>
     </Router>
   );

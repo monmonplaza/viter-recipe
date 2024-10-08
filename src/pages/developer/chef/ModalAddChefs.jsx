@@ -2,7 +2,7 @@ import { CircleUser, ImageUp, X } from "lucide-react";
 import ModalWrapper from "../partials/modal/ModalWrapper.jsx";
 import SpinnerButton from "../partials/spinners/SpinnerButton.jsx";
 
-const ModalAddRecipeCategory = () => {
+const ModalAddChefs = () => {
   return (
     <>
       <ModalWrapper>
@@ -17,7 +17,39 @@ const ModalAddRecipeCategory = () => {
           <div className="modal-body p-2">
             <div className="input-wrap">
               {/* {itemEdit && ( */}
-              <label htmlFor="">Upload Photo</label>
+              <label htmlFor="">Avatar</label>
+              <div className="relative  group">
+                {true === null ? (
+                  <CircleUser className="group-hover:opacity-30 duration-200 relative rounded-full size-[100px] object-cover m-auto fill-gray-400" />
+                ) : (
+                  <img
+                    src={"https:via.placeholder.com/150"}
+                    // photo
+                    //   ? URL.createObjectURL(photo) // preview
+                    //   : devBaseImgUrl + "/" + "xxx" // check db
+                    // }
+                    alt="employee photo"
+                    className="group-hover:opacity-30 duration-200 relative   w-[80px] h-[80px] object-cover m-auto rounded-full "
+                  />
+                )}
+
+                <ImageUp className="opacity-0 duration-200 group-hover:opacity-100  absolute top-0 right-0 bottom-0 left-0  m-auto cursor-pointer" />
+                {/* <InputPhotoUpload
+                  name="photo"
+                  type="file"
+                  id="myFile"
+                  accept="image/*"
+                  title="Upload photo"
+                  // onChange={handleChangePhoto}
+                  className="opacity-0 absolute top-0 right-0 bottom-0 left-0 rounded-full size-[100px] m-auto cursor-pointer"
+                /> */}
+              </div>
+              {/* )} */}
+            </div>
+
+            <div className="input-wrap">
+              {/* {itemEdit && ( */}
+              <label htmlFor="">Banner Image</label>
               <div className="relative  group">
                 {true === null ? (
                   <CircleUser className="group-hover:opacity-30 duration-200 relative rounded-full size-[100px] object-cover m-auto fill-gray-400" />
@@ -73,4 +105,4 @@ const ModalAddRecipeCategory = () => {
   );
 };
 
-export default ModalAddRecipeCategory;
+export default ModalAddChefs;

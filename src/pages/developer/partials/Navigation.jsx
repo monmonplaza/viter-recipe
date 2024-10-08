@@ -37,7 +37,7 @@ const Navigation = ({ menu }) => {
                     to={link.url}
                     className={`flex gap-3 items-center w-full px-2 py-2 rounded-md border opacity-70 border-transparent hover:opacity-100 text-sm ${
                       link.title === menu
-                        ? "bg-accent text-accent bg-opacity-10 opacity-100 !border-accent"
+                        ? "bg-accent text-accent bg-opacity-10 !opacity-100 !border-accent "
                         : " "
                     }`}
                   >
