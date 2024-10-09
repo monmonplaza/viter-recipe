@@ -137,7 +137,7 @@
   }
 
   .input-wrap textarea.xl {
-    @apply max-h-[600px] h-full  min-h-[600px] overflow-auto;
+    @apply max-h-[300px] h-full  min-h-[300px] overflow-auto;
   }
 
   .input-wrap .error-msg {
@@ -164,28 +164,29 @@
   /* BUTTONS */
 
   .btn {
-    @apply bg-accent px-3 py-2 flex gap-2 items-center justify-center  rounded-md text-xs transition-all;
+    @apply bg-accent px-3 py-2 flex gap-2 items-center justify-center  rounded-md text-xs transition-all text-white;
   }
 
   .modal-action {
     @apply p-2 flex justify-end gap-2 border-t border-gray-300 [&>*]:w-1/2;
-    .btn-save {
-      @apply bg-accent hover:bg-opacity-90 text-white;
-    }
+  }
 
-    .btn-alert {
-      @apply bg-alert hover:bg-opacity-90 text-white;
-    }
+  .btn-save {
+    @apply bg-accent hover:bg-opacity-90 text-white;
+  }
 
-    .btn-warning {
-      @apply bg-warning hover:bg-opacity-90 text-white;
-    }
-    .btn-success {
-      @apply bg-success hover:bg-opacity-90 text-white;
-    }
-    .btn-cancel {
-      @apply bg-gray-200 hover:bg-gray-300 text-gray-600;
-    }
+  .btn-alert {
+    @apply bg-alert hover:bg-opacity-90 text-white;
+  }
+
+  .btn-warning {
+    @apply bg-warning hover:bg-opacity-90 text-white;
+  }
+  .btn-success {
+    @apply bg-success hover:bg-opacity-90 text-white;
+  }
+  .btn-cancel {
+    @apply !bg-gray-200 hover:bg-gray-300 text-gray-600;
   }
 }
 @layer utilities {

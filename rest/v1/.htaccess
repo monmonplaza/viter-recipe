@@ -1,0 +1,22 @@
+RewriteEngine On
+# use for authentication
+RewriteCond %{HTTP:Authorization} ^(.+)$
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+Header set Access-Control-Allow-Origin *
+
+#################################### ALL FOR DEVELOPER #################################
+
+RewriteRule ^upload-photo$ core/upload-photo.php [L]
+
+
+### CATEGORY ###
+RewriteRule ^category$ controllers/developer/category/category.php [L]
+RewriteRule ^category/([0-9]+)$ controllers/developer/category/category.php?categoryid=$1 [L]
+RewriteRule ^category/active/([0-9]+)$ controllers/developer/category/active.php?categoryid=$1 [L]
+RewriteRule ^category/page/([0-9]+)$ controllers/developer/category/page.php?start=$1 [L]
+RewriteRule ^category/search$ controllers/developer/category/search.php [L]
+RewriteRule ^category/read-all-category$ controllers/developer/category/read-all-category.php [L]
+  
