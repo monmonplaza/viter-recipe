@@ -1,9 +1,51 @@
+import { queryData } from "@/components/helpers/queryData.jsx";
+import {
+  setIsDelete,
+  setMessage,
+  setSuccess,
+  setValidate,
+} from "@/components/store/StoreAction.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Trash, X } from "lucide-react";
 import React from "react";
 import SpinnerButton from "../spinners/SpinnerButton.jsx";
 import ModalWrapper from "./ModalWrapper.jsx";
 
-const ModalDelete = () => {
+const ModalDelete = ({ mysqlApiDelete, queryKey, item }) => {
+  const { dispatch } = React.useContext(StoreContext);
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (values) => queryData(mysqlApiDelete, "delete", values),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: [queryKey] });
+      handleClose();
+      if (!data.success) {
+        dispatch(setValidate(true));
+        dispatch(setMessage(data.error));
+      } else {
+        dispatch(setIsDelete(false));
+        dispatch(setSuccess(true));
+        dispatch(setMessage("Record Successfully Deleted"));
+      }
+    },
+  });
+
+  const handleYes = async () => {
+    mutation.mutate({
+      item: item,
+    });
+  };
+
+  const handleClose = () => {
+    // dispatch(setIsAnimating(false));
+    // setTimeout(() => {
+    //   dispatch(setIsAnimating(true));
+    dispatch(setIsDelete(false));
+    // });
+  };
   return (
     <div>
       <ModalWrapper>
@@ -12,14 +54,14 @@ const ModalDelete = () => {
             <span className="text-alert flex items-center gap-1">
               <Trash size={14} /> Delete
             </span>
-            <button>
+            <button onClick={handleClose}>
               <X size={16} />
             </button>
           </div>
 
-          <div className="modal-body p-2 flex items-center justify-center">
+          <div className="modal-body p-2 flex  flex-col items-center justify-center">
             <p className="mb-0 text-center leading-snug">
-              Are your sure you want to delete this record - "Record Name"
+              Are your sure you want to delete this record - "{item}"
             </p>
             <p className="my-2 text-alert px-2 py-0.5 bg-alert bg-opacity-20 text-xs text-center w-fit mx-auto">
               NOTE: This action is irreversable
@@ -27,11 +69,20 @@ const ModalDelete = () => {
           </div>
 
           <div className="modal-action [&>*]:w-auto">
-            <button className="btn btn-alert" type="submit">
-              <SpinnerButton />
-              Save
+            <button
+              className="btn btn-alert"
+              type="submit"
+              disabled={mutation.isPending}
+              onClick={handleYes}
+            >
+              {mutation.isPending ? <SpinnerButton /> : "Delete"}
             </button>
-            <button className="btn btn-cancel" type="cancel">
+            <button
+              className="btn btn-cancel"
+              disabled={mutation.isPending}
+              type="reset"
+              onClick={handleClose}
+            >
               Cancel
             </button>
           </div>

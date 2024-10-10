@@ -4,6 +4,7 @@ class Category
     public $category_aid;
     public $category_title;
     public $category_photo;
+    public $category_url;
     public $category_is_active;
     public $category_datetime;
     public $category_created;
@@ -31,11 +32,13 @@ class Category
             $sql = "insert into {$this->tblCategory} ";
             $sql .= "( category_title, ";
             $sql .= "category_photo, ";
+            $sql .= "category_url, ";
             $sql .= "category_is_active, ";
             $sql .= "category_datetime, ";
             $sql .= "category_created ) values ( ";
             $sql .= ":category_title, ";
             $sql .= ":category_photo, ";
+            $sql .= ":category_url, ";
             $sql .= ":category_is_active, ";
             $sql .= ":category_datetime, ";
             $sql .= ":category_created ) ";
@@ -43,6 +46,7 @@ class Category
             $query->execute([
                 "category_title" => $this->category_title,
                 "category_photo" => $this->category_photo,
+                "category_url" => $this->category_url,
                 "category_is_active" => $this->category_is_active,
                 "category_datetime" => $this->category_datetime,
                 "category_created" => $this->category_created,
@@ -137,12 +141,14 @@ class Category
             $sql = "update {$this->tblCategory} set ";
             $sql .= "category_title = :category_title, ";
             $sql .= "category_photo = :category_photo, ";
+            $sql .= "category_url = :category_url, ";
             $sql .= "category_datetime = :category_datetime ";
             $sql .= "where category_aid = :category_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "category_title" => $this->category_title,
                 "category_photo" => $this->category_photo,
+                "category_url" => $this->category_url,
                 "category_datetime" => $this->category_datetime,
                 "category_aid" => $this->category_aid,
             ]);

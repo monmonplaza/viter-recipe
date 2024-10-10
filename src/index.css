@@ -77,7 +77,7 @@
   }
 
   button {
-    @apply cursor-pointer transition-all duration-300;
+    @apply cursor-pointer transition-all duration-300 outline-none;
   }
 
   button:disabled {
@@ -140,8 +140,23 @@
     @apply max-h-[300px] h-full  min-h-[300px] overflow-auto;
   }
 
-  .input-wrap .error-msg {
-    @apply absolute  text-red-500 -top-4 right-1;
+  .input-wrap:has(.error-show) input,
+  .input-wrap:has(.error-show) select,
+  .input-wrap:has(.error-show) .dragndrop,
+  .input-wrap:has(.error-show) textarea {
+    @apply border-alert;
+  }
+
+  .input-wrap span.error-show {
+    @apply absolute  text-red-500 top-0 right-1 text-[10px];
+  }
+
+  .dropzone:has(.error-show) > div {
+    @apply border border-alert rounded-md;
+  }
+
+  .dropzone .input-wrap .error--msg {
+    @apply absolute -top-5 italic right-0 text-[10px] text-alert;
   }
 
   /* TABLE */
@@ -184,6 +199,9 @@
   }
   .btn-success {
     @apply bg-success hover:bg-opacity-90 text-white;
+  }
+  .btn-info {
+    @apply bg-info hover:bg-opacity-90 text-white;
   }
   .btn-cancel {
     @apply !bg-gray-200 hover:bg-gray-300 text-gray-600;

@@ -1,5 +1,6 @@
 import { useField } from "formik";
 import { Check } from "lucide-react";
+import React from "react";
 import { NumericFormat } from "react-number-format";
 
 export const InputTextArea = ({
@@ -75,12 +76,16 @@ export const InputText = ({
 
   return (
     <>
+      {label !== "" && (
+        <label htmlFor={props.id || props.name}>
+          {required && <span className="text-alert">*</span>}
+          {label}
+        </label>
+      )}
       <input
         {...field}
         {...props}
-        className={
-          meta.touched && meta.error ? `error-show ${className}` : className
-        }
+        className={meta.touched && meta.error ? `error-show ` : className}
         onChange={(e) => {
           onChange !== null && onChange(e);
           field.onChange(e);
@@ -88,12 +93,6 @@ export const InputText = ({
         autoComplete="off"
         ref={refVal}
       />
-      {label !== "" && (
-        <label htmlFor={props.id || props.name}>
-          {required && <span className="text-alert">*</span>}
-          {label}
-        </label>
-      )}
 
       {meta.touched && meta.error ? (
         <span className="error-show">{meta.error}</span>
@@ -141,23 +140,22 @@ export const InputPhotoUpload = ({ label, ...props }) => {
     <>
       <input {...field} {...props} />
       {meta.touched && meta.error ? (
-        <span className="error--msg">{meta.error}</span>
+        <span className="error-show">{meta.error}</span>
       ) : null}
     </>
   );
 };
-
-export const InputFileUpload = ({ label, ...props }) => {
+export const InputFileUpload = React.forwardRef(({ label, ...props }, ref) => {
   const [field, meta] = useField(props);
   return (
     <>
-      <input {...field} {...props} />
+      <input {...field} {...props} ref={ref} />
       {meta.touched && meta.error ? (
-        <span className="error--msg">{meta.error}</span>
+        <span className="error-show">{meta.error}</span>
       ) : null}
     </>
   );
-};
+});
 
 export const InputCheckbox = ({ label, onChange = null, ...props }) => {
   const [field, meta] = useField(props);

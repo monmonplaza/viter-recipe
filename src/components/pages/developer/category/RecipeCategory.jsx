@@ -3,10 +3,13 @@ import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import Footer from "../partials/Footer.jsx";
 import Header from "../partials/Header.jsx";
+import ModalError from "../partials/modal/ModalError.jsx";
+import ModalValidate from "../partials/modal/ModalValidate.jsx";
 import Navigation from "../partials/Navigation.jsx";
 import PageTitleAdd from "../partials/PageTitleAdd.jsx";
 import TableFilterStatus from "../partials/TableFilterStatus.jsx";
 import TableSearch from "../partials/TableSearch.jsx";
+import Toast from "../partials/Toast.jsx";
 import ModalAddRecipeCategory from "./ModalAddRecipeCategory.jsx";
 import CategoryList from "./RecipeCategoryList.jsx";
 
@@ -38,6 +41,8 @@ const RecipeCategory = () => {
         </div>
       </section>
       {store.isAdd && <ModalAddRecipeCategory itemEdit={itemEdit} />}
+      {store.validate && <ModalValidate />}
+      {store.success && <Toast />}
     </>
   );
 };

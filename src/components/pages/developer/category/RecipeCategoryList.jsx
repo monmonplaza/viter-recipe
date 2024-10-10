@@ -1,6 +1,7 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import useTableActions from "@/components/custom-hooks/useTableActions.jsx";
 import { ver } from "@/components/helpers/functions-general.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
 import {
   Archive,
   ArchiveRestore,
@@ -13,8 +14,13 @@ import React from "react";
 import LoaderTable from "../partials/LoaderTable.jsx";
 import NoData from "../partials/icons/NoData.jsx";
 import ServerError from "../partials/icons/ServerError.jsx";
+import ModalConfirm from "../partials/modal/ModalConfirm.jsx";
+import ModalDelete from "../partials/modal/ModalDelete.jsx";
 import SpinnerTable from "../partials/spinners/SpinnerTable.jsx";
 const RecipeCategoryList = ({ setItemEdit }) => {
+  const { store, dispatch } = React.useContext(StoreContext);
+
+  let count = 0;
   const {
     handleRemove,
     handleEdit,
@@ -49,7 +55,7 @@ const RecipeCategoryList = ({ setItemEdit }) => {
                 <th className="w-[40px]">#</th>
                 <th>Status</th>
                 <th>Title</th>
-                <th>Date</th>
+
                 <th className="text-right">Action</th>
               </tr>
             </thead>
@@ -74,23 +80,34 @@ const RecipeCategoryList = ({ setItemEdit }) => {
               )}
 
               {result?.data.map((item, key) => {
+                count++;
                 return (
                   <tr key={key}>
-                    <td>1. </td>
-                    <td>Active</td>
-                    <td>Sheet Pan Chicken Shawarma </td>
-                    <td>11/12/24</td>
+                    <td>{count} </td>
+                    <td>xx</td>
+                    <td>{item.category_title} </td>
+
                     <td>
                       <ul className="flex gap-4 justify-end">
-                        {item.settings_unit_is_active === 1 ? (
+                        {item.category_is_active === 1 ? (
                           <>
                             <li>
-                              <button type="button">
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handleEdit(item.category_aid, item)
+                                }
+                              >
                                 <FilePenLine size={14} />
                               </button>
                             </li>
                             <li>
-                              <button type="button">
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handleArchive(item.category_aid, item)
+                                }
+                              >
                                 <Archive size={14} />
                               </button>
                             </li>
@@ -99,11 +116,21 @@ const RecipeCategoryList = ({ setItemEdit }) => {
                           <>
                             <li>
                               <button type="button">
-                                <ArchiveRestore size={14} />
+                                <ArchiveRestore
+                                  size={14}
+                                  onClick={() =>
+                                    handleRestore(item.category_aid, item)
+                                  }
+                                />
                               </button>
                             </li>
                             <li>
-                              <button type="button">
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handleRemove(item.category_aid, item)
+                                }
+                              >
                                 <Trash size={14} />
                               </button>
                             </li>
@@ -118,6 +145,22 @@ const RecipeCategoryList = ({ setItemEdit }) => {
           </table>
         </div>
       </div>
+
+      {store.isDelete && (
+        <ModalDelete
+          mysqlApiDelete={`/${ver}/category/${aid}`}
+          queryKey="category"
+          item={data.category_title}
+        />
+      )}
+      {store.isConfirm && (
+        <ModalConfirm
+          mysqlApiArchive={`/${ver}/category/active/${aid}`}
+          queryKey="category"
+          item={data.category_title}
+          active={isActive}
+        />
+      )}
     </>
   );
 };
