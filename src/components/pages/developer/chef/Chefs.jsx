@@ -31,7 +31,7 @@ const Chefs = () => {
           </main>
         </div>
       </section>
-      {/* <ModalAddChefs /> */}
+      <ModalAddChefs />
 
       {/* <ModalDelete /> */}
       {/* <ModalConfirm /> */}

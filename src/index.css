@@ -148,15 +148,15 @@
   }
 
   .input-wrap span.error-show {
-    @apply absolute  text-red-500 top-0 right-1 text-[10px];
+    @apply absolute  text-red-500 top-0.5 right-1 text-[10px];
   }
 
-  .dropzone:has(.error-show) > div {
-    @apply border border-alert rounded-md;
+  .input-photo-wrap:has(.error-show) > div {
+    @apply border-alert;
   }
 
-  .dropzone .input-wrap .error--msg {
-    @apply absolute -top-5 italic right-0 text-[10px] text-alert;
+  .input-photo-wrap .error-show {
+    @apply absolute  text-red-500 !-top-4 right-1 text-[10px];
   }
 
   /* TABLE */

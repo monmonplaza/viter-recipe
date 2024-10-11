@@ -5,7 +5,7 @@ export const recipes = [
     recipe_aid: 1,
     recipe_title: "Sheet Pan Chicken Shawarma",
     recipe_slug: "sheet-pan-chicken-shawarma",
-    recipe_published: "May 30, 2024",
+    recipe_published: "October 9, 2024",
 
     recipe_description:
       "This shortcut version of chicken shawarma skips the long marinating and roasting time and relies instead on quick cooking sliced thighs and a shower of the spices that go into the classic version--think cumin, cardamom and turmeric.  ",
@@ -400,7 +400,7 @@ export const recipes = [
     recipe_aid: 5,
     recipe_title: "Fresh Corn Salad",
     recipe_slug: "fresh-corn-salad",
-    recipe_published: "October 1, 2024",
+    recipe_published: "October 8, 2024",
 
     recipe_description:
       "Bacon, cream, Parmesan -- is your mouth watering yet? There's no need to go out to dinner when you can make this restaurant-style creamy, cheesy chicken and fettuccine at home.",

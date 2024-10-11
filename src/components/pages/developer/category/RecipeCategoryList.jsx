@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import React from "react";
 import LoaderTable from "../partials/LoaderTable.jsx";
+import Pill from "../partials/Pill.jsx";
 import NoData from "../partials/icons/NoData.jsx";
 import ServerError from "../partials/icons/ServerError.jsx";
 import ModalConfirm from "../partials/modal/ModalConfirm.jsx";
@@ -84,7 +85,9 @@ const RecipeCategoryList = ({ setItemEdit }) => {
                 return (
                   <tr key={key}>
                     <td>{count} </td>
-                    <td>xx</td>
+                    <td>
+                      <Pill isActive={item.category_is_active} />
+                    </td>
                     <td>{item.category_title} </td>
 
                     <td>

@@ -1,3 +1,4 @@
+import { devBaseImgUrl } from "@/components/helpers/functions-general.jsx";
 import React from "react";
 import { Link } from "react-router-dom";
 import { recipes } from "../data.jsx";

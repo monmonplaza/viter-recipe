@@ -15,7 +15,7 @@ import {
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
-import { File, ImagePlusIcon, User2, X } from "lucide-react";
+import { Camera, File, ImagePlusIcon, User2, X } from "lucide-react";
 import React from "react";
 import * as Yup from "yup";
 import ModalWrapper from "../partials/modal/ModalWrapper.jsx";
@@ -111,15 +111,17 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
                 <Form className="">
                   <div className="modal-body p-2 min-h-[calc(99dvh-36px)] grid grid-rows-[1fr_auto]">
                     <div className="field-wrapper">
-                      <div className="input-wrap relative  mt-5 group">
+                      <div className="input-wrap relative  mt-5 group input-photo-wrap">
                         {itemEdit === null && photo === null ? (
                           <div className="w-full h-[150px] bg-gray-50 border border-gray-200 rounded-md flex justify-center items-center flex-col">
                             <ImagePlusIcon
                               size={50}
                               strokeWidth={1}
-                              className="opacity-50"
+                              className="opacity-20 group-hover:opacity-50 transition-opacity"
                             />
-                            <small>Upload Photo</small>
+                            <small className="opacity-20 group-hover:opacity-50 transition-opacity">
+                              Upload Photo
+                            </small>
                           </div>
                         ) : (
                           <img
@@ -132,7 +134,7 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
                             className="group-hover:opacity-30 duration-200 relative rounded-full min-w-[3rem] min-h-[3rem] max-w-[3rem] max-h-[3rem] object-cover object-[50%,50%] m-auto"
                           />
                         )}
-                        <File className="opacity-0 duration-200 group-hover:opacity-100 fill-dark/70 absolute top-0 right-0 bottom-0 left-0 min-w-[1.2rem] min-h-[1.2rem] max-w-[1.2rem] max-h-[1.2rem] m-auto cursor-pointer" />
+
                         <InputPhotoUpload
                           name="category_photo"
                           type="file"
