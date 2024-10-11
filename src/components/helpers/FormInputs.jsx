@@ -145,6 +145,7 @@ export const InputPhotoUpload = ({ label, ...props }) => {
     </>
   );
 };
+
 export const InputFileUpload = React.forwardRef(({ label, ...props }, ref) => {
   const [field, meta] = useField(props);
   return (

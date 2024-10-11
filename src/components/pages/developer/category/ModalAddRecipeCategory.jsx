@@ -1,19 +1,13 @@
+import useUploadPhoto from "@/components/custom-hooks/useUploadPhoto.jsx";
 import {
-  InputFileUpload,
   InputPhotoUpload,
   InputText,
 } from "@/components/helpers/FormInputs.jsx";
-import {
-  devApiUrl,
-  devBaseImgUrl,
-  fetchFormData,
-  ver,
-} from "@/components/helpers/functions-general.jsx";
+import { devBaseImgUrl } from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
 import {
   setError,
   setIsAdd,
-  setIsAnimating,
   setMessage,
   setSuccess,
   setValidate,
@@ -21,27 +15,25 @@ import {
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
-import { CircleUser, ImageUp, Trash, User, X } from "lucide-react";
+import { File, ImagePlusIcon, User2, X } from "lucide-react";
 import React from "react";
-import { useDropzone } from "react-dropzone";
 import * as Yup from "yup";
 import ModalWrapper from "../partials/modal/ModalWrapper.jsx";
 import SpinnerButton from "../partials/spinners/SpinnerButton.jsx";
 
 const ModalAddRecipeCategory = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [photo, setPhoto] = React.useState(null);
 
-  const [isImgMounted, setIsImgMounted] = React.useState(false);
-  const [isImgEditing, setIsEditing] = React.useState(false);
+  const { uploadPhoto, handleChangePhoto, photo } = useUploadPhoto(
+    "/v1/upload-photo",
+    dispatch
+  );
 
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit
-          ? `/${ver}/category/${itemEdit.category_aid}`
-          : `/${ver}/category`,
+        itemEdit ? `/v1/category/${itemEdit.category_aid}` : `/v1/category`,
         itemEdit ? "put" : "post",
         values
       ),
@@ -56,11 +48,8 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
         dispatch(setValidate(true));
         dispatch(setMessage(data.error));
       } else {
-        uploadPhoto();
-        queryClient.invalidateQueries({ queryKey: ["category"] });
-
         dispatch(setSuccess(true));
-        dispatch(setMessage(`Record Successfully updated.`));
+        dispatch(setMessage(`Successfully updated.`));
         dispatch(setIsAdd(false));
       }
     },
@@ -74,6 +63,8 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
     // }, 300);
   };
 
+  console.log(itemEdit);
+
   const initVal = {
     category_title: itemEdit ? itemEdit.category_title : "",
     category_photo: itemEdit ? itemEdit.category_photo : "",
@@ -83,50 +74,9 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
 
   const yupSchema = Yup.object({
     category_title: Yup.string().required("Required"),
-    // category_photo: Yup.string().required("Required"),
+    category_photo: Yup.string().required("Required"),
     category_url: Yup.string().required("Required"),
   });
-
-  const { isDragAccept, acceptedFiles, getRootProps, getInputProps } =
-    useDropzone({
-      validator: customValidator,
-      maxFiles: 1,
-      maxSize: 100000,
-      onDropRejected: () => {
-        dispatch(setValidate(true));
-        dispatch(
-          setMessage(
-            "Photo is too big. It should be less than 500Kb and 280x280px size for better result."
-          )
-        );
-      },
-      onDropAccepted: () => {
-        setIsImgMounted(true);
-      },
-    });
-
-  const uploadPhoto = async () => {
-    if (photo) {
-      const fd = new FormData();
-      fd.append("photo", photo);
-
-      const data = await fetchFormData(
-        devApiUrl + `/v1/upload-photo`,
-        fd,
-        dispatch
-      );
-    }
-  };
-
-  function customValidator(file) {
-    console.log(file);
-    if (file.name === "") {
-      console.log("error");
-      return;
-    } else {
-      setPhoto(file.name);
-    }
-  }
 
   return (
     <>
@@ -142,20 +92,18 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
             initialValues={initVal}
             validationSchema={yupSchema}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
-              if (photo === null) {
-                dispatch(setValidate(true));
-                dispatch(setMessage("Image Required"));
-                return;
-              }
-              console.log({
+              uploadPhoto();
+
+              mutation.mutate({
                 ...values,
-                category_photo: photo
-                  ? photo
-                  : itemEdit
-                  ? itemEdit.category_photo
-                  : "",
+                category_photo:
+                  (itemEdit?.category_photo === "" && photo) ||
+                  (!photo && "") ||
+                  (photo === undefined && "") ||
+                  (photo && itemEdit?.category_photo !== photo?.name)
+                    ? photo?.name || ""
+                    : itemEdit?.category_photo || "",
               });
-              // uploadPhoto();
             }}
           >
             {(props) => {
@@ -163,87 +111,37 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
                 <Form className="">
                   <div className="modal-body p-2 min-h-[calc(99dvh-36px)] grid grid-rows-[1fr_auto]">
                     <div className="field-wrapper">
-                      <div className="input-wrap">
-                        {(!itemEdit || isImgEditing) && (
-                          <>
-                            {!isImgMounted && (
-                              <div {...getRootProps({ className: "dropzone" })}>
-                                <label htmlFor="">Upload Photo</label>
-                                <div
-                                  className={`border border-line h-[200px] w-full grid place-content-center  rounded-md transition-all cursor-pointer hover:border-accent hover:bg-accent hover:bg-opacity-[0.02] overflow-hidden  ${
-                                    isDragAccept
-                                      ? "!border-accent bg-accent bg-opacity-[0.02]"
-                                      : ""
-                                  }`}
-                                >
-                                  <div className="flex flex-col center-all ">
-                                    <ImageUp
-                                      size={50}
-                                      className="opacity-10"
-                                      strokeWidth={1}
-                                    />
-                                    <p className="text-sm opacity-25 mb-0 font-poppinsLight">
-                                      Drag or click to upload photo
-                                    </p>
-                                  </div>
-                                </div>
-
-                                <InputFileUpload
-                                  {...getInputProps()}
-                                  name="category_photo"
-                                  className="dragndrop"
-                                  type="file"
-                                  accept="image/*"
-                                  value=""
-                                />
-                              </div>
-                            )}
-                            {isImgMounted && (
-                              <div className="thumbnail mb-2">
-                                {acceptedFiles.map((file, key) => (
-                                  <div className="thumbnail relative" key={key}>
-                                    <img
-                                      src={`${URL.createObjectURL(file)}`}
-                                      alt=""
-                                      className="rounded-md w-full h-[240px] object-cover"
-                                    />
-
-                                    <button
-                                      className="absolute top-2 left-2 tooltip opacity-100"
-                                      data-tooltip="Remove"
-                                      type="button"
-                                      onClick={() => {
-                                        setIsImgMounted(false);
-                                        setPhoto(null);
-                                      }}
-                                    >
-                                      <Trash className="text-red-500" />
-                                    </button>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                          </>
-                        )}
-
-                        {itemEdit && !isImgEditing && (
-                          <div className="thumbnail relative border border-gray-300 rounded-md">
-                            <img
-                              src={`${devBaseImgUrl}/${itemEdit.category_photo}`}
-                              alt=""
-                              className="rounded-md w-full h-[240px] object-cover"
+                      <div className="input-wrap relative  mt-5 group">
+                        {itemEdit === null && photo === null ? (
+                          <div className="w-full h-[150px] bg-gray-50 border border-gray-200 rounded-md flex justify-center items-center flex-col">
+                            <ImagePlusIcon
+                              size={50}
+                              strokeWidth={1}
+                              className="opacity-50"
                             />
-
-                            <button
-                              className="absolute top-2 left-2 tooltip z-40"
-                              data-tooltip="Remove"
-                              type="button"
-                              onClick={() => setIsEditing(true)}
-                            >
-                              <Trash className="text-red-500" />
-                            </button>
+                            <small>Upload Photo</small>
                           </div>
+                        ) : (
+                          <img
+                            src={
+                              photo
+                                ? URL.createObjectURL(photo) // preview
+                                : devBaseImgUrl + "/" + itemEdit.category_photo // check db
+                            }
+                            alt="employee photo"
+                            className="group-hover:opacity-30 duration-200 relative rounded-full min-w-[3rem] min-h-[3rem] max-w-[3rem] max-h-[3rem] object-cover object-[50%,50%] m-auto"
+                          />
                         )}
+                        <File className="opacity-0 duration-200 group-hover:opacity-100 fill-dark/70 absolute top-0 right-0 bottom-0 left-0 min-w-[1.2rem] min-h-[1.2rem] max-w-[1.2rem] max-h-[1.2rem] m-auto cursor-pointer" />
+                        <InputPhotoUpload
+                          name="category_photo"
+                          type="file"
+                          id="photo"
+                          accept="image/*"
+                          title="Upload photo"
+                          onChange={(e) => handleChangePhoto(e)}
+                          className="opacity-0 absolute top-0 right-0 bottom-0 left-0 rounded-full  m-auto cursor-pointer w-full h-full"
+                        />
                       </div>
 
                       <div className="input-wrap">
@@ -271,7 +169,7 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
                       </button>
                       <button
                         className="btn btn-cancel"
-                        type="cancel"
+                        type="reset"
                         onClick={handleClose}
                       >
                         Cancel

@@ -1,5 +1,5 @@
 import React from "react";
-import { devApiUrl, fetchFormData } from "../helpers/functions-general";
+import { devApiUrl, fetchFormData } from "../helpers/functions-general.jsx";
 import { setError, setMessage } from "../store/StoreAction";
 
 const useUploadPhoto = (url, dispatch) => {
@@ -12,7 +12,7 @@ const useUploadPhoto = (url, dispatch) => {
 
       const data = await fetchFormData(devApiUrl + url, fd, dispatch);
 
-      console.log(photo);
+      console.log(data);
     }
   };
 
@@ -25,8 +25,7 @@ const useUploadPhoto = (url, dispatch) => {
     }
 
     const img = e.target.files[0];
-
-    if (img.size > 5000) {
+    if (img.size > 35000) {
       dispatch(setError(true));
       dispatch(
         setMessage(
@@ -34,9 +33,8 @@ const useUploadPhoto = (url, dispatch) => {
         )
       );
     } else {
-      dispatch(setError(false));
-
       setPhoto(img);
+      dispatch(setError(false));
     }
   };
 
