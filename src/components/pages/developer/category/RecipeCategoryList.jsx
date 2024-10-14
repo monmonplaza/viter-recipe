@@ -46,6 +46,7 @@ const RecipeCategoryList = ({ setItemEdit }) => {
     isLoading,
     isFetching,
     error,
+    refetch,
     data: result,
   } = useQueryData(
     isFilter ? `/${ver}/category/filter` : `/${ver}/category`, // endpoint
@@ -151,6 +152,7 @@ const RecipeCategoryList = ({ setItemEdit }) => {
           mysqlApiDelete={`/${ver}/category/${aid}`}
           queryKey="category"
           item={data.category_title}
+          refetch={refetch}
         />
       )}
       {store.isConfirm && (
@@ -159,6 +161,7 @@ const RecipeCategoryList = ({ setItemEdit }) => {
           queryKey="category"
           item={data.category_title}
           active={isActive}
+          refetch={refetch}
         />
       )}
     </>

@@ -13,7 +13,7 @@ import React from "react";
 import SpinnerButton from "../spinners/SpinnerButton.jsx";
 import ModalWrapper from "./ModalWrapper.jsx";
 
-const ModalConfirm = ({ mysqlApiArchive, queryKey, item, active }) => {
+const ModalConfirm = ({ mysqlApiArchive, queryKey, item, active, refetch }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -26,6 +26,7 @@ const ModalConfirm = ({ mysqlApiArchive, queryKey, item, active }) => {
         dispatch(setValidate(true));
         dispatch(setMessage(data.error));
       } else {
+        refetch();
         dispatch(setIsConfirm(false));
         dispatch(setSuccess(true));
         dispatch(setMessage("Record updated"));
