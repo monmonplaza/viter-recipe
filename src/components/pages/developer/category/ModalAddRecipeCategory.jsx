@@ -63,8 +63,6 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
     // }, 300);
   };
 
-  console.log(itemEdit);
-
   const initVal = {
     category_title: itemEdit ? itemEdit.category_title : "",
     category_photo: itemEdit ? itemEdit.category_photo : "",
@@ -74,7 +72,6 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
 
   const yupSchema = Yup.object({
     category_title: Yup.string().required("Required"),
-    category_photo: Yup.string().required("Required"),
     category_url: Yup.string().required("Required"),
   });
 
@@ -94,15 +91,20 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
             onSubmit={async (values, { setSubmitting, resetForm }) => {
               uploadPhoto();
 
+              if (photo === "") {
+                dispatch(setValidate(true));
+                dispatch(setMessage("Image Required"));
+                return;
+              }
+
               mutation.mutate({
                 ...values,
                 category_photo:
-                  (itemEdit?.category_photo === "" && photo) ||
-                  (!photo && "") ||
-                  (photo === undefined && "") ||
-                  (photo && itemEdit?.category_photo !== photo?.name)
-                    ? photo?.name || ""
-                    : itemEdit?.category_photo || "",
+                  (itemEdit && itemEdit.category_photo === "") || photo
+                    ? photo === null
+                      ? itemEdit.category_photo
+                      : photo.name
+                    : values.category_photo,
               });
             }}
           >
@@ -128,7 +130,7 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
                             src={
                               photo
                                 ? URL.createObjectURL(photo) // preview
-                                : devBaseImgUrl + "/" + itemEdit.category_photo // check db
+                                : devBaseImgUrl + "/" + itemEdit?.category_photo // check db
                             }
                             alt="employee photo"
                             className="group-hover:opacity-30 duration-200 relative rounded-full min-w-[3rem] min-h-[3rem] max-w-[3rem] max-h-[3rem] object-cover object-[50%,50%] m-auto"
@@ -136,12 +138,13 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
                         )}
 
                         <InputPhotoUpload
-                          name="category_photo"
+                          name="photo"
                           type="file"
                           id="photo"
                           accept="image/*"
                           title="Upload photo"
                           onChange={(e) => handleChangePhoto(e)}
+                          onDrop={(e) => handleChangePhoto(e)}
                           className="opacity-0 absolute top-0 right-0 bottom-0 left-0 rounded-full  m-auto cursor-pointer w-full h-full"
                         />
                       </div>
@@ -151,7 +154,7 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
                           label="Title"
                           type="text"
                           name="category_title"
-                          disabled={mutation.isLoading}
+                          disabled={mutation.isPending}
                         />
                       </div>
 
@@ -160,7 +163,7 @@ const ModalAddRecipeCategory = ({ itemEdit }) => {
                           label="URL"
                           type="text"
                           name="category_url"
-                          disabled={mutation.isLoading}
+                          disabled={mutation.isPending}
                         />
                       </div>
                     </div>

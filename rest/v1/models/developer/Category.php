@@ -216,8 +216,8 @@ class Category
         try {
             $sql = "select * ";
             $sql .= "from {$this->tblCategory} ";
-            $sql .= "where category_is_active = :category_is_active  ";
-            $sql .= "order by category_is_active desc ";
+            $sql .= "where category_is_active = :category_is_active ";
+            $sql .= "order by category_title desc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "category_is_active" => $this->category_is_active,

@@ -32,7 +32,7 @@ const RecipeCategory = () => {
             <div className="p-5">
               <PageTitleAdd title="Category" handleAdd={handleAdd} />
               <div className="main-wrapper">
-                <TableFilterStatus />
+        
                 <CategoryList setItemEdit={setItemEdit} />
               </div>
             </div>

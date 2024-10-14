@@ -1,6 +1,6 @@
-export const projectURL = "http://localhost/react-vite/viter-recipe";
+export const projectURL = "http://localhost/react-ojt/vite-recipe";
 export const projectImgUrl =
-  "http://localhost/react-vite/viter-recipe/public/img";
+  "http://localhost/react-ojt/vite-recipe/public/img";
 
 export const devApiUrl = `${projectURL}/rest`;
 export const devBaseUrl = `${projectURL}`;

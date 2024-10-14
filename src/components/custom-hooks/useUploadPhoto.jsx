@@ -17,6 +17,7 @@ const useUploadPhoto = (url, dispatch) => {
   };
 
   const handleChangePhoto = (e) => {
+    console.log(e.target.files[0]);
     if (!e.target.files[0]) {
       setPhoto("");
       dispatch(setError(false));
@@ -25,7 +26,7 @@ const useUploadPhoto = (url, dispatch) => {
     }
 
     const img = e.target.files[0];
-    if (img.size > 35000) {
+    if (img.size > 350000) {
       dispatch(setError(true));
       dispatch(
         setMessage(

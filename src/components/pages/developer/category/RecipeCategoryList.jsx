@@ -18,9 +18,17 @@ import ServerError from "../partials/icons/ServerError.jsx";
 import ModalConfirm from "../partials/modal/ModalConfirm.jsx";
 import ModalDelete from "../partials/modal/ModalDelete.jsx";
 import SpinnerTable from "../partials/spinners/SpinnerTable.jsx";
+import {
+  ActionArchive,
+  ActionEdit,
+  ActionRemove,
+  ActionRestore,
+} from "@/components/helpers/TableActions.jsx";
+import TableFilterStatus from "../partials/TableFilterStatus.jsx";
 const RecipeCategoryList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-
+  const [isFilter, setIsFilter] = React.useState(false);
+  const [filterValue, setFilterValue] = React.useState("");
   let count = 0;
   const {
     handleRemove,
@@ -33,19 +41,27 @@ const RecipeCategoryList = ({ setItemEdit }) => {
   } = useTableActions({
     setItemEdit,
   });
+
   const {
     isLoading,
     isFetching,
     error,
     data: result,
   } = useQueryData(
-    `/${ver}/category`, // endpoint
-    "get", // method
-    "category" // key
+    isFilter ? `/${ver}/category/filter` : `/${ver}/category`, // endpoint
+    isFilter ? "post" : "get", // method
+    ["category", filterValue], // key
+    {
+      filterby: filterValue,
+    }
   );
 
   return (
     <>
+      <TableFilterStatus
+        setFilterValue={setFilterValue}
+        setIsFilter={setIsFilter}
+      />
       <div className="relative">
         {!isLoading && isFetching && <SpinnerTable />}
 
@@ -94,49 +110,30 @@ const RecipeCategoryList = ({ setItemEdit }) => {
                       <ul className="flex gap-4 justify-end">
                         {item.category_is_active === 1 ? (
                           <>
-                            <li>
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  handleEdit(item.category_aid, item)
-                                }
-                              >
-                                <FilePenLine size={14} />
-                              </button>
-                            </li>
-                            <li>
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  handleArchive(item.category_aid, item)
-                                }
-                              >
-                                <Archive size={14} />
-                              </button>
-                            </li>
+                            <ActionEdit
+                              handleClick={() =>
+                                handleEdit(item.category_aid, item)
+                              }
+                            />
+
+                            <ActionArchive
+                              handleClick={() =>
+                                handleArchive(item.category_aid, item)
+                              }
+                            />
                           </>
                         ) : (
                           <>
-                            <li>
-                              <button type="button">
-                                <ArchiveRestore
-                                  size={14}
-                                  onClick={() =>
-                                    handleRestore(item.category_aid, item)
-                                  }
-                                />
-                              </button>
-                            </li>
-                            <li>
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  handleRemove(item.category_aid, item)
-                                }
-                              >
-                                <Trash size={14} />
-                              </button>
-                            </li>
+                            <ActionRestore
+                              handleClick={() =>
+                                handleRestore(item.category_aid, item)
+                              }
+                            />
+                            <ActionRemove
+                              handleClick={() =>
+                                handleRemove(item.category_aid, item)
+                              }
+                            />
                           </>
                         )}
                       </ul>

@@ -10,6 +10,7 @@ if (array_key_exists("categoryid", $_GET)) {
     $category->category_aid = $_GET['categoryid'];
     $category->category_title = checkIndex($data, "category_title");
     $category->category_photo = checkIndex($data, "category_photo");
+    $category->category_url = checkIndex($data, "category_url");
     $category->category_datetime = date("Y-m-d H:i:s");
     $category_title_old = strtolower($data["category_title_old"]);
 
