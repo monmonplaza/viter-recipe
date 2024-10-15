@@ -1,12 +1,16 @@
 import React from "react";
 
-const TableFilterStatus = ({ setFilterValue, setIsFilter }) => {
+const TableFilterStatus = ({ setFilterValue, setIsFilter, filterValue }) => {
   return (
     <>
       {" "}
       <div className="table-filter-status px-2 bg-yellow-100 bg-opacity-30">
         <ul className="flex gap-3 ">
-          <li className="text-xs p-3 px-5 font-poppinsBold border-b-2 border-accent">
+          <li
+            className={`text-xs p-3 px-5 font-poppinsBold ${
+              filterValue === "" ? "border-b-2 border-accent" : ""
+            } `}
+          >
             <button
               className=" active:opacity-100 text-accent"
               onClick={() => {
@@ -17,7 +21,11 @@ const TableFilterStatus = ({ setFilterValue, setIsFilter }) => {
               All
             </button>
           </li>
-          <li className="text-xs p-3 px-5 font-poppinsBold">
+          <li
+            className={`text-xs p-3 px-5 font-poppinsBold ${
+              filterValue === 1 ? "border-b-2 border-accent" : ""
+            } `}
+          >
             <button
               className="opacity-50 text-dark"
               onClick={() => {
@@ -28,7 +36,11 @@ const TableFilterStatus = ({ setFilterValue, setIsFilter }) => {
               Active
             </button>
           </li>
-          <li className="text-xs p-3 px-5 font-poppinsBold">
+          <li
+            className={`text-xs p-3 px-5 font-poppinsBold ${
+              filterValue === 0 ? "border-b-2 border-accent" : ""
+            } `}
+          >
             <button
               className="opacity-50 text-dark"
               onClick={() => {
