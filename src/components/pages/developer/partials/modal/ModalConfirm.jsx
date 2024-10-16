@@ -26,7 +26,6 @@ const ModalConfirm = ({ mysqlApiArchive, queryKey, item, active, refetch }) => {
         dispatch(setValidate(true));
         dispatch(setMessage(data.error));
       } else {
-        refetch();
         dispatch(setIsConfirm(false));
         dispatch(setSuccess(true));
         dispatch(setMessage("Record updated"));

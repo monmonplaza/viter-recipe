@@ -1,5 +1,11 @@
 import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
 import useTableActions from "@/components/custom-hooks/useTableActions.jsx";
+import {
+  ActionArchive,
+  ActionEdit,
+  ActionRemove,
+  ActionRestore,
+} from "@/components/helpers/TableActions.jsx";
 import { ver } from "@/components/helpers/functions-general.jsx";
 import { StoreContext } from "@/components/store/StoreContext.jsx";
 import {
@@ -13,18 +19,12 @@ import {
 import React from "react";
 import LoaderTable from "../partials/LoaderTable.jsx";
 import Pill from "../partials/Pill.jsx";
+import TableFilterStatus from "../partials/TableFilterStatus.jsx";
 import NoData from "../partials/icons/NoData.jsx";
 import ServerError from "../partials/icons/ServerError.jsx";
 import ModalConfirm from "../partials/modal/ModalConfirm.jsx";
 import ModalDelete from "../partials/modal/ModalDelete.jsx";
 import SpinnerTable from "../partials/spinners/SpinnerTable.jsx";
-import {
-  ActionArchive,
-  ActionEdit,
-  ActionRemove,
-  ActionRestore,
-} from "@/components/helpers/TableActions.jsx";
-import TableFilterStatus from "../partials/TableFilterStatus.jsx";
 const RecipeCategoryList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [isFilter, setIsFilter] = React.useState(false);
@@ -51,7 +51,7 @@ const RecipeCategoryList = ({ setItemEdit }) => {
   } = useQueryData(
     isFilter ? `/${ver}/category/filter` : `/${ver}/category`, // endpoint
     isFilter ? "post" : "get", // method
-    ["category", filterValue], // key
+    { filterValue }, // key
     {
       filterby: filterValue,
     }
@@ -150,7 +150,7 @@ const RecipeCategoryList = ({ setItemEdit }) => {
       {store.isDelete && (
         <ModalDelete
           mysqlApiDelete={`/${ver}/category/${aid}`}
-          queryKey="category"
+          queryKey={{ filterValue }}
           item={data.category_title}
           refetch={refetch}
         />
@@ -158,7 +158,7 @@ const RecipeCategoryList = ({ setItemEdit }) => {
       {store.isConfirm && (
         <ModalConfirm
           mysqlApiArchive={`/${ver}/category/active/${aid}`}
-          queryKey="category"
+          queryKey={{ filterValue }}
           item={data.category_title}
           active={isActive}
           refetch={refetch}
