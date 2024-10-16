@@ -10,8 +10,20 @@ import TableFilterStatus from "../partials/TableFilterStatus.jsx";
 import TableSearch from "../partials/TableSearch.jsx";
 import ChefsList from "./ChefsList.jsx";
 import ModalAddChefs from "./ModalAddChefs.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
+import { setIsAdd } from "@/components/store/StoreAction.jsx";
+import ModalValidate from "../partials/modal/ModalValidate.jsx";
+import Toast from "../partials/Toast.jsx";
 
 const Chefs = () => {
+  const { store, dispatch } = React.useContext(StoreContext);
+  const [itemEdit, setItemEdit] = React.useState(null);
+
+  const handleAdd = () => {
+    dispatch(setIsAdd(true));
+    setItemEdit(null);
+  };
+
   return (
     <>
       <section className="recipes">
@@ -20,22 +32,19 @@ const Chefs = () => {
           <main className="primary-wrapper ">
             <Header />
             <div className="p-5">
-              <PageTitleAdd title="Chefs" />
+              <PageTitleAdd title="Chefs" handleAdd={handleAdd} />
               <div className="main-wrapper">
-                <TableFilterStatus />
-                <TableSearch />
-                <ChefsList />
+                <ChefsList setItemEdit={setItemEdit} />
               </div>
             </div>
             <Footer />
           </main>
         </div>
       </section>
-      <ModalAddChefs />
+      {store.isAdd && <ModalAddChefs itemEdit={itemEdit} />}
 
-      {/* <ModalDelete /> */}
-      {/* <ModalConfirm /> */}
-      {/* <ModalError /> */}
+      {store.validate && <ModalValidate />}
+      {store.success && <Toast />}
     </>
   );
 };

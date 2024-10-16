@@ -21,3 +21,12 @@ RewriteRule ^category/page/([0-9]+)$ controllers/developer/category/page.php?sta
 RewriteRule ^category/search$ controllers/developer/category/search.php [L]
 RewriteRule ^category/read-all-category$ controllers/developer/category/read-all-category.php [L]
   
+### CHEF ###
+RewriteRule ^chef$ controllers/developer/chef/chef.php [L]
+RewriteRule ^chef/([0-9]+)$ controllers/developer/chef/chef.php?chefid=$1 [L]
+RewriteRule ^chef/active/([0-9]+)$ controllers/developer/chef/active.php?chefid=$1 [L]
+RewriteRule ^chef/filter$ controllers/developer/chef/filter.php? [L]
+RewriteRule ^chef/page/([0-9]+)$ controllers/developer/chef/page.php?start=$1 [L]
+RewriteRule ^chef/search$ controllers/developer/chef/search.php [L]
+RewriteRule ^chef/read-all-chef$ controllers/developer/chef/read-all-chef.php [L]
+  

@@ -62,6 +62,7 @@ const RecipeCategoryList = ({ setItemEdit }) => {
       <TableFilterStatus
         setFilterValue={setFilterValue}
         setIsFilter={setIsFilter}
+        filterValue={filterValue}
       />
       <div className="relative">
         {!isLoading && isFetching && <SpinnerTable />}
