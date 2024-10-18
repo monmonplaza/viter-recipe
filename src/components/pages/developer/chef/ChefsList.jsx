@@ -1,3 +1,13 @@
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
+import useTableActions from "@/components/custom-hooks/useTableActions.jsx";
+import {
+  ActionArchive,
+  ActionEdit,
+  ActionRemove,
+  ActionRestore,
+} from "@/components/helpers/TableActions.jsx";
+import { devBaseImgUrl, ver } from "@/components/helpers/functions-general.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
 import {
   Archive,
   ArchiveRestore,
@@ -8,24 +18,14 @@ import {
   Trash,
 } from "lucide-react";
 import React from "react";
+import LoaderTable from "../partials/LoaderTable.jsx";
+import Pill from "../partials/Pill.jsx";
+import TableFilterStatus from "../partials/TableFilterStatus.jsx";
 import NoData from "../partials/icons/NoData.jsx";
 import ServerError from "../partials/icons/ServerError.jsx";
-import LoaderTable from "../partials/LoaderTable.jsx";
-import { StoreContext } from "@/components/store/StoreContext.jsx";
-import useTableActions from "@/components/custom-hooks/useTableActions.jsx";
-import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
-import { devBaseImgUrl, ver } from "@/components/helpers/functions-general.jsx";
-import TableFilterStatus from "../partials/TableFilterStatus.jsx";
-import SpinnerTable from "../partials/spinners/SpinnerTable.jsx";
-import {
-  ActionArchive,
-  ActionEdit,
-  ActionRemove,
-  ActionRestore,
-} from "@/components/helpers/TableActions.jsx";
-import Pill from "../partials/Pill.jsx";
-import ModalDelete from "../partials/modal/ModalDelete.jsx";
 import ModalConfirm from "../partials/modal/ModalConfirm.jsx";
+import ModalDelete from "../partials/modal/ModalDelete.jsx";
+import SpinnerTable from "../partials/spinners/SpinnerTable.jsx";
 const ChefsList = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [isFilter, setIsFilter] = React.useState(false);
@@ -52,7 +52,10 @@ const ChefsList = ({ setItemEdit }) => {
   } = useQueryData(
     isFilter ? `/${ver}/chef/filter` : `/${ver}/chef`, // endpoint
     isFilter ? "post" : "get", // method
-    ["chef", filterValue], // key
+    "chef", // key
+    {
+      filterby: filterValue,
+    },
     {
       filterby: filterValue,
     }
@@ -157,7 +160,6 @@ const ChefsList = ({ setItemEdit }) => {
           mysqlApiDelete={`/${ver}/chef/${aid}`}
           queryKey="chef"
           item={data.chef_name}
-          refetch={refetch}
         />
       )}
       {store.isConfirm && (
@@ -166,7 +168,6 @@ const ChefsList = ({ setItemEdit }) => {
           queryKey="chef"
           item={data.chef_name}
           active={isActive}
-          refetch={refetch}
         />
       )}
     </>

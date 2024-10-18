@@ -14,11 +14,11 @@ if (array_key_exists("chefid", $_GET)) {
     $chef->chef_bio = checkIndex($data, "chef_bio");
     $chef->chef_fullbio = checkIndex($data, "chef_fullbio");
     $chef->chef_datetime = date("Y-m-d H:i:s");
-    $chef_title_old = strtolower($data["chef_title_old"]);
+    $chef_name_old = strtolower($data["chef_name_old"]);
 
     checkId($chef->chef_aid);
 
-    compareName($chef, $chef_title_old, $chef->chef_name);
+    compareName($chef, $chef_name_old, $chef->chef_name);
 
     $query = checkUpdate($chef);
     returnSuccess($chef, "chef", $query);

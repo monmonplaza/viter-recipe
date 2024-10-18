@@ -141,6 +141,21 @@ class Chef
         }
         return $query;
     }
+    public function readBySlug()
+    {
+        try {
+            $sql = "select * from {$this->tblChef} ";
+            $sql .= "where chef_slug = :chef_slug ";
+            $sql .= "order by chef_is_active desc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "chef_slug" => $this->chef_slug,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
 
     // update
     public function update()

@@ -29,4 +29,5 @@ RewriteRule ^chef/filter$ controllers/developer/chef/filter.php? [L]
 RewriteRule ^chef/page/([0-9]+)$ controllers/developer/chef/page.php?start=$1 [L]
 RewriteRule ^chef/search$ controllers/developer/chef/search.php [L]
 RewriteRule ^chef/read-all-chef$ controllers/developer/chef/read-all-chef.php [L]
+RewriteRule ^chef/(.*)$ controllers/developer/chef/read-by-slug.php?slug=$1 [L]
   

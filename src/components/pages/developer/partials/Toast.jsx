@@ -18,12 +18,12 @@ const Toast = () => {
         } else {
           setWidth((prev) => prev - 1);
         }
-      }, 55);
+      }, 38);
     }, 0);
 
     setTimeout(() => {
       handleClose();
-    }, 3000);
+    }, 2000);
   }, []);
 
   return (

@@ -1,18 +1,4 @@
-import { CircleUser, ImageUp, X } from "lucide-react";
-import ModalWrapper from "../partials/modal/ModalWrapper.jsx";
-import SpinnerButton from "../partials/spinners/SpinnerButton.jsx";
-import {
-  setIsAdd,
-  setMessage,
-  setSuccess,
-  setValidate,
-} from "@/components/store/StoreAction.jsx";
-import { StoreContext } from "@/components/store/StoreContext.jsx";
 import useUploadPhoto from "@/components/custom-hooks/useUploadPhoto.jsx";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
-import * as Yup from "yup";
-import { Form, Formik } from "formik";
 import {
   InputPhotoUpload,
   InputText,
@@ -20,6 +6,20 @@ import {
 } from "@/components/helpers/FormInputs.jsx";
 import { devBaseImgUrl } from "@/components/helpers/functions-general.jsx";
 import { queryData } from "@/components/helpers/queryData.jsx";
+import {
+  setIsAdd,
+  setMessage,
+  setSuccess,
+  setValidate,
+} from "@/components/store/StoreAction.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Form, Formik } from "formik";
+import { CircleUser, ImagePlusIcon, ImageUp, X } from "lucide-react";
+import React from "react";
+import * as Yup from "yup";
+import ModalWrapper from "../partials/modal/ModalWrapper.jsx";
+import SpinnerButton from "../partials/spinners/SpinnerButton.jsx";
 
 const ModalAddChefs = ({ itemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -29,7 +29,6 @@ const ModalAddChefs = ({ itemEdit }) => {
     dispatch
   );
 
-  console.log(itemEdit);
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (values) =>
@@ -74,7 +73,6 @@ const ModalAddChefs = ({ itemEdit }) => {
   };
 
   const yupSchema = Yup.object({
-    category_title: Yup.string().required("Required"),
     chef_bio: Yup.string().required("Required"),
     chef_fullbio: Yup.string().required("Required"),
     chef_name: Yup.string().required("Required"),
@@ -94,7 +92,7 @@ const ModalAddChefs = ({ itemEdit }) => {
             initialValues={initVal}
             validationSchema={yupSchema}
             onSubmit={async (values, { setSubmitting, resetForm }) => {
-              // uploadPhoto();
+              uploadPhoto();
 
               if (photo === "") {
                 dispatch(setValidate(true));
@@ -142,7 +140,7 @@ const ModalAddChefs = ({ itemEdit }) => {
                                   : devBaseImgUrl + "/" + itemEdit?.chef_avatar // check db
                               }
                               alt="employee photo"
-                              className="group-hover:opacity-30 duration-200 relative rounded-full min-w-[3rem] min-h-[3rem] max-w-[3rem] max-h-[3rem] object-cover object-[50%,50%] m-auto"
+                              className="group-hover:opacity-30 duration-200 relative rounded-full w-[150px] h-[150px] object-cover object-[50%,50%] m-auto"
                             />
                           )}
 
@@ -171,7 +169,7 @@ const ModalAddChefs = ({ itemEdit }) => {
                           <InputTextArea
                             label="Bio"
                             name="chef_bio"
-                            className="min-h-[170px]"
+                            className="min-h-[70px]"
                             disabled={mutation.isPending}
                           />
                         </div>

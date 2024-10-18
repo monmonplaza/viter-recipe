@@ -1,4 +1,5 @@
-import { devBaseImgUrl } from "@/components/helpers/functions-general.jsx";
+import useQueryData from "@/components/custom-hooks/useQueryData.jsx";
+import { devBaseImgUrl, ver } from "@/components/helpers/functions-general.jsx";
 import AsideLatest from "@/components/website/partials/AsideLatest.jsx";
 import AsideNewsletter from "@/components/website/partials/AsideNewsletter.jsx";
 import AsideSocialMedia from "@/components/website/partials/AsideSocialMedia.jsx";
@@ -21,6 +22,18 @@ const Chef = () => {
     return item.recipe_author_name === getChefInfo[0].chef_name;
   });
 
+  const {
+    isLoading,
+    isFetching,
+    error,
+    refetch,
+    data: result,
+  } = useQueryData(
+    `/${ver}/chef/${slug}`, // endpoint
+    "post", // method
+    "category"
+  );
+
   return (
     <>
       <Header />
@@ -30,16 +43,10 @@ const Chef = () => {
         </div>
         <div className="container">
           <div className="grid grid-cols-[3.5fr_1.5fr] gap-10 pt-10">
-            <main>
-              {getChefInfo.map((chef, key) => {
+            <main className="chef-main">
+              {result?.data.map((chef, key) => {
                 return (
                   <React.Fragment key={key}>
-                    <img
-                      src={`${devBaseImgUrl}/${chef.chef_image}`}
-                      alt=""
-                      className="w-full h-[400px] object-cover"
-                    />
-
                     <h3 className="pb-3 my-5 border-b border-gray-300 ">
                       Information
                     </h3>
