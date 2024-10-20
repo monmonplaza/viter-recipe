@@ -1,19 +1,14 @@
+import { setIsAdd } from "@/components/store/StoreAction.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
 import React from "react";
 import Footer from "../partials/Footer.jsx";
 import Header from "../partials/Header.jsx";
-import ModalConfirm from "../partials/modal/ModalConfirm.jsx";
-import ModalDelete from "../partials/modal/ModalDelete.jsx";
-import ModalError from "../partials/modal/ModalError.jsx";
+import ModalValidate from "../partials/modal/ModalValidate.jsx";
 import Navigation from "../partials/Navigation.jsx";
 import PageTitleAdd from "../partials/PageTitleAdd.jsx";
-import TableFilterStatus from "../partials/TableFilterStatus.jsx";
-import TableSearch from "../partials/TableSearch.jsx";
+import Toast from "../partials/Toast.jsx";
 import ChefsList from "./ChefsList.jsx";
 import ModalAddChefs from "./ModalAddChefs.jsx";
-import { StoreContext } from "@/components/store/StoreContext.jsx";
-import { setIsAdd } from "@/components/store/StoreAction.jsx";
-import ModalValidate from "../partials/modal/ModalValidate.jsx";
-import Toast from "../partials/Toast.jsx";
 
 const Chefs = () => {
   const { store, dispatch } = React.useContext(StoreContext);

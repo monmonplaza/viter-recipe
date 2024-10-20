@@ -102,9 +102,7 @@ const ModalAddChefs = ({ itemEdit }) => {
 
               mutation.mutate({
                 ...values,
-                chef_slug: itemEdit
-                  ? itemEdit.chef_slug
-                  : values.chef_name.replace(" ", "-"),
+                chef_slug: values.chef_name.replaceAll(" ", "-"),
                 chef_avatar:
                   (itemEdit && itemEdit.chef_avatar === "") || photo
                     ? photo === null

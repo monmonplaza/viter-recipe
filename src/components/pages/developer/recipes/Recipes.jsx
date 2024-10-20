@@ -21,8 +21,17 @@ import TableFilterStatus from "../partials/TableFilterStatus.jsx";
 import TableSearch from "../partials/TableSearch.jsx";
 import ModalAddRecipe from "./ModalAddRecipe.jsx";
 import RecipesList from "./RecipesList.jsx";
+import { StoreContext } from "@/components/store/StoreContext.jsx";
+import { setIsAdd } from "@/components/store/StoreAction.jsx";
 
 const Recipes = () => {
+  const { store, dispatch } = React.useContext(StoreContext);
+  const [itemEdit, setItemEdit] = React.useState(null);
+
+  const handleAdd = () => {
+    dispatch(setIsAdd(true));
+    setItemEdit(null);
+  };
   return (
     <>
       <section className="recipes">
@@ -31,10 +40,9 @@ const Recipes = () => {
           <main className="primary-wrapper ">
             <Header />
             <div className="p-5">
-              <PageTitleAdd title="Recipes" />
+              <PageTitleAdd title="Recipes" handleAdd={handleAdd} />
               <div className="main-wrapper">
                 <TableFilterStatus />
-                <TableSearch />
                 <RecipesList />
               </div>
             </div>
@@ -42,7 +50,7 @@ const Recipes = () => {
           </main>
         </div>
       </section>
-      {/* <ModalAddRecipe /> */}
+      {store.isAdd && <ModalAddRecipe />}
     </>
   );
 };

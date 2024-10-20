@@ -30,4 +30,15 @@ RewriteRule ^chef/page/([0-9]+)$ controllers/developer/chef/page.php?start=$1 [L
 RewriteRule ^chef/search$ controllers/developer/chef/search.php [L]
 RewriteRule ^chef/read-all-chef$ controllers/developer/chef/read-all-chef.php [L]
 RewriteRule ^chef/(.*)$ controllers/developer/chef/read-by-slug.php?slug=$1 [L]
+
+
+
+RewriteRule ^recipe$ controllers/developer/recipe/recipe.php [L]
+RewriteRule ^recipe/([0-9]+)$ controllers/developer/recipe/recipe.php?recipeid=$1 [L]
+RewriteRule ^recipe/active/([0-9]+)$ controllers/developer/recipe/active.php?recipeid=$1 [L]
+RewriteRule ^recipe/filter$ controllers/developer/recipe/filter.php? [L]
+RewriteRule ^recipe/page/([0-9]+)$ controllers/developer/recipe/page.php?start=$1 [L]
+RewriteRule ^recipe/search$ controllers/developer/recipe/search.php [L]
+RewriteRule ^recipe/read-all-recipe$ controllers/developer/recipe/read-all-recipe.php [L]
+RewriteRule ^recipe/(.*)$ controllers/developer/recipe/read-by-slug.php?slug=$1 [L]
   

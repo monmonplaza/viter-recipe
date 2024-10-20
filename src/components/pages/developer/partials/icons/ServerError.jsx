@@ -298,7 +298,9 @@ const ServerError = () => {
           </clipPath>
         </defs>
       </svg>
-      <h4 className="opacity-50 font-normal capitalize mt-5">Server Error</h4>
+      <h4 className="opacity-50 font-normal font-poppinsBold capitalize mt-5">
+        Server Error
+      </h4>
     </div>
   );
 };

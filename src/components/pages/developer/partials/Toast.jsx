@@ -11,19 +11,18 @@ const Toast = () => {
   };
 
   React.useEffect(() => {
-    setTimeout(() => {
-      let intervalID = setInterval(() => {
-        if (setWidth === 0) {
-          clearInterval(intervalID);
-        } else {
-          setWidth((prev) => prev - 1);
-        }
-      }, 38);
-    }, 0);
+    let intervalID = setInterval(() => {
+      if (width === 0) {
+        clearInterval(intervalID);
+        handleClose();
+      } else {
+        setWidth((prev) => prev - 1);
+      }
+    }, 65);
 
     setTimeout(() => {
       handleClose();
-    }, 2000);
+    }, 3500);
   }, []);
 
   return (

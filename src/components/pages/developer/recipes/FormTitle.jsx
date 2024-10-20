@@ -29,23 +29,7 @@ const FormTitle = () => {
             <textarea className="!h-[200px] overflow-y-auto" />
           </div>
           <div>
-            <div className="input-wrap">
-              <label htmlFor="">Published</label>
-              <input type="text" />
-            </div>
-            <div className="input-wrap">
-              <label htmlFor="">Duration</label>
-              <input type="text" />
-            </div>
-            <div className="input-wrap">
-              <label htmlFor="">Tags</label>
-              <input type="text" />
-            </div>
-
-            <div className="input-wrap">
-              <label htmlFor="">Category</label>
-              <input type="text" />
-            </div>
+           
           </div>
         </div>
       </div>
